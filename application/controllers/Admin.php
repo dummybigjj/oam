@@ -51,8 +51,10 @@ class Admin extends CI_Controller{
         $this->load->view('templates/content-inner');
         // Page contents
         if($this->session->userdata('designation')=='Administrator'):
+        // administrator home/landing page after login
         $this->load->view('oam-users/oam-admin/admin-home');
         else:
+        // registrar home/landing page after login
         $this->load->view('oam-users/oam-admin/registrar-home');
         endif;
         // Page modals
