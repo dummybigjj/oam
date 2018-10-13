@@ -17,6 +17,7 @@ class Admin extends CI_Controller{
 
     // View templating references
     public function template_reference(){
+        // set your header icon and title
         $data['subheader'] = array('title'=>'Template Reference Header','icon'=>'fa fa-cogs');
         // Page headers
         $this->load->view('templates/header');
