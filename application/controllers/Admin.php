@@ -17,7 +17,7 @@ class Admin extends CI_Controller{
 
     // View templating references
     public function template_reference(){
-        $data['subheader'] = array('title'=>'Security Configuration','icon'=>'fa fa-cogs');
+        $data['subheader'] = array('title'=>'Template Reference Header','icon'=>'fa fa-cogs');
         // Page headers
         $this->load->view('templates/header');
         $this->load->view('templates/header-bar');
@@ -427,14 +427,5 @@ class Admin extends CI_Controller{
     }
 
     /*************************** End Action controllers for generating remarks report ***************************/
-
-
-    public function test()
-    {
-        $string = "2018-09-27";
-        // preg_match("/(\w+)/", $string, $match);
-        $match = preg_split("/(\W+)/", $string);
-        print_r($match);
-    }
 
 }
