@@ -108,7 +108,6 @@ checkboxes.click(function() {
 });
 
 // Modal functions
-
 function import_student() {
   $('#formimportStudents')[0].reset();
   //SHOW MODAL
@@ -116,7 +115,7 @@ function import_student() {
   $('.modal-title').text('Import Students');
 }
   
-  function view_student(id){
+function view_student(id){
   $('#formviewStudent')[0].reset();
   //LOAD DATA USING AJAX
   $.ajax({
@@ -229,10 +228,6 @@ function remove_student() {
       alert('ERROR UPDATING DATA');
     }
   });
-}
-
-function closeModal(){
-  location.reload();
 }
 
 </script>
