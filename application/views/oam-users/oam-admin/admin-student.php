@@ -109,12 +109,12 @@ checkboxes.click(function() {
 
 // Modal functions
 
-  function import_student() {
-    $('#formimportStudents')[0].reset();
-    //SHOW MODAL
-    $('#importStudents').modal('show');
-    $('.modal-title').text('Import Students');
-  }
+function import_student() {
+  $('#formimportStudents')[0].reset();
+  //SHOW MODAL
+  $('#importStudents').modal('show');
+  $('.modal-title').text('Import Students');
+}
   
   function view_student(id){
   $('#formviewStudent')[0].reset();
