@@ -49,7 +49,7 @@ class Admin extends CI_Controller{
         $this->load->view('templates/header');
         $this->load->view('templates/header-bar');
         $this->load->view('templates/content-inner');
-        // Page contents
+        // Page content
         if($this->session->userdata('designation')=='Administrator'):
         // administrator home/landing page after login
         $this->load->view('oam-users/oam-admin/admin-home');

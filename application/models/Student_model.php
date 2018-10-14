@@ -137,7 +137,6 @@ class Student_model extends CI_Model {
 	 */
 	public function validateStudentsSubject($students = array(),$subjects = array()){
 		$new_students = array();
-		$ctr = 0;
 		$con = array(
 			'subject' 		=> $subjects['subject'],
 			'subject_code'	=> $subjects['subject_code'],
@@ -150,8 +149,7 @@ class Student_model extends CI_Model {
 			if($count > 0){
 				
 			}else{
-				$new_students[$ctr] = $students[$i];
-				$ctr++;
+				$new_students[] = $students[$i];
 			}
 		}
 		return $new_students;
@@ -200,7 +198,6 @@ class Student_model extends CI_Model {
 	 */
 	public function validateStudentsSchedule($students = array(),$subjects = array()){
 		$new_students = array();
-		$ctr = 0;
 		$con = array(
 			'day'		=> $subjects['day'],
 			'time'		=> $subjects['time'],
@@ -213,8 +210,7 @@ class Student_model extends CI_Model {
 			if($count > 0){
 				
 			}else{
-				$new_students[$ctr] = $students[$i];
-				$ctr++;
+				$new_students[] = $students[$i];
 			}
 		}
 		return $new_students;
