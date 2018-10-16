@@ -114,7 +114,8 @@ function import_student() {
   $('#importStudents').modal('show');
   $('.modal-title').text('Import Students');
 }
-  
+ 
+// view student info using modal
 function view_student(id){
   $('#formviewStudent')[0].reset();
   //LOAD DATA USING AJAX
