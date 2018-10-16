@@ -245,7 +245,6 @@ class Student extends CI_Controller{
         if($insert){
             $this->user_model->recordLogs('Register students',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success', 'Students has been registered!.');
-            echo "SUCCESS!";
         }else{
             $this->session->set_flashdata('danger', 'Error occured!.');
         }

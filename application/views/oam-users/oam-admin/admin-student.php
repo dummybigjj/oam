@@ -108,7 +108,6 @@ checkboxes.click(function() {
 });
 
 // Modal functions
-
 function import_student() {
   $('#formimportStudents')[0].reset();
   //SHOW MODAL
