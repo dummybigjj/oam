@@ -347,11 +347,11 @@ class Student_model extends CI_Model {
 	 * countTableRows function.
 	 * 
 	 * @access public
-	 * @param string $table_name
-	 * @return int on success.
+	 * @return int count of table rows on success.
 	 */
-	public function countTableRows($table_name){
-		return $this->db->count_all($table_name);
+	public function countTableRows(){
+		return $this->crud->getData('','c',array('is_active'=>'true'),'tbl9');
+		// return $this->db->count_all($table_name);
 	}
 
 	/**
@@ -400,7 +400,7 @@ class Student_model extends CI_Model {
 		// pagination config
         $config = array();
         $config["base_url"] = base_url() . "register_student";
-        $config["total_rows"] = $this->countTableRows('student_subject');
+        $config["total_rows"] = $this->countTableRows();
         $config["per_page"] = $per_page;
         $config["uri_segment"] = 2;
 
