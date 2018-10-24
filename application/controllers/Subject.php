@@ -248,7 +248,7 @@ class Subject extends CI_Controller{
         $msg     = 'Schedule has been updated!';
         $faculty = $this->input->post('faculty_assigned');
         $sched_id= $this->input->post('schedule_id');
-        $schedule = array('day'=>$this->input->post('day'),'time'=>$this->input->post('time'));
+        $schedule = array('day'=>$this->input->post('day'),'time'=>$this->input->post('time'),'is_active'=>'true');
         if(!empty($faculty)){
             // validate faculty schedule
             // $schedule = $this->crud->getData('schedule_id,day,time','s',array('schedule_id'=>$sched_id),'tbl10');
@@ -439,7 +439,7 @@ class Subject extends CI_Controller{
             $ctr = 0;
             for ($i=0; $i < count($sched_id); $i++) { 
                 // create schedule condition
-                $schedule = array('day'=>$day[$i],'time'=>$time[$i]);
+                $schedule = array('day'=>$day[$i],'time'=>$time[$i],'is_active'=>'true');
                 // validate faculty schedule
                 $valid = $this->subject_model->isSCheduleValidforFaculty($faculty,$sched_id[$i],$schedule);
                 if($valid===TRUE){
