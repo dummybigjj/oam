@@ -70,6 +70,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#example').DataTable();
+  $('#example').DataTable({
+    "pageLength": 50
+  });
 });
 </script>
