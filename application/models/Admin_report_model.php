@@ -7,6 +7,123 @@ class Admin_report_model extends CI_Model {
 	}
 
     /**
+     * generateStudentsAttendanceXlsx function.
+     * 
+     * @access public
+     * @param associative array $attendance
+     * @param associative array $att_record
+     * @param associative array $att_dates
+     * @param date $range1
+     * @param date $range2
+     * @return xlsx|xlx file on success.
+     */
+    public function generateStudentsAttendanceXlsx($attendance=array(),$att_record=array(),$att_dates=array(),$range1,$range2){
+        //activate worksheet number 1
+        $this->excel->setActiveSheetIndex(0);
+        //name the worksheet
+        $this->excel->getActiveSheet()->setTitle('Students Daily Attendance');
+        //set cell D2 content with some text
+        $this->excel->getActiveSheet()->setCellValue('D2', 'TECHNICAL HIGHER INSTITUTE FOR ENGINEERING AND PETROLEUM');
+        //make the font become bold
+        $this->excel->getActiveSheet()->getStyle('D2')->getFont()->setBold(true);
+        //merge cell D2 until M2
+        $this->excel->getActiveSheet()->mergeCells('D2:M2');
+        //set aligment to center for that merged cell (D2 to M2)
+        $this->excel->getActiveSheet()->getStyle('D2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        //set cell D3 content with some text
+        $this->excel->getActiveSheet()->setCellValue('D3', 'Students Daily Attendance Report');
+        //merge cell D3 until M3
+        $this->excel->getActiveSheet()->mergeCells('D3:M3');
+        //set aligment to center for that merged cell (D3 to M3)
+        $this->excel->getActiveSheet()->getStyle('D3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        //set cell D4 content with some text
+        $this->excel->getActiveSheet()->setCellValue('D4', 'Report Date Range: '.date('F d, Y',strtotime($range1)).' - '.date('F d, Y',strtotime($range2)));
+        //merge cell D4 until M4
+        $this->excel->getActiveSheet()->mergeCells('D4:M4');
+        //set aligment to center for that merged cell (D4 to M4)
+        $this->excel->getActiveSheet()->getStyle('D4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        // set column header names
+        $fields = array();
+        // set custom colum names
+        $fields = array('','STUDENT NO','STUDENT NAME');
+        for ($i=0; $i < count($att_dates); $i++) { 
+            $date_col = preg_split("/(\W+)/", $att_dates[$i]['attendance_date']);
+            $fields[] = $date_col[1]."/".$date_col[2];
+        }
+        $fields[] = 'P';
+        $fields[] = 'A';
+        $fields[] = 'L';
+        $fields[] = 'E';
+        $fields[] = 'V';
+        $fields[] = 'SCORES';
+        // set column header names to active sheet
+        $this->excel->getActiveSheet()->fromArray($fields, NULL, 'A7');
+        $target_cell = 8;
+        // set report value
+        for ($i=0; $i < count($att_record); $i++) { 
+            $lineData = array('',$att_record[$i]['student_no'],$att_record[$i]['arabic_name']);
+            for ($b=0; $b < count($att_dates); $b++) { 
+                $is_found = FALSE;
+                for ($a=0; $a < count($attendance); $a++) { 
+                    if($attendance[$a]['attendance_date']==$att_dates[$b]['attendance_date'] && $att_record[$i]['student_id']==$attendance[$a]['student_id']){
+                        $lineData[] = $attendance[$a]['attendance'];
+                        $is_found = TRUE;
+                    }
+                }
+                if($is_found===FALSE){
+                    $lineData[$b+3] = "";
+                }
+            }
+            $lineData[] = $att_record[$i]['presents'];
+            $lineData[] = $att_record[$i]['absences'];
+            $lineData[] = $att_record[$i]['lates'];
+            $lineData[] = $att_record[$i]['excuses'];
+            $lineData[] = $att_record[$i]['vacations'];
+            $lineData[] = $att_record[$i]['points'];
+            // set report value to active sheet
+            $this->excel->getActiveSheet()->fromArray($lineData, NULL, 'A'.$target_cell);
+            $target_cell++;
+        }
+
+        //set singed footer
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+5), 'Verified and Assessed by:');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+5))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+7), 'Mustafa Hassan Al Sulayyil');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+7))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+8), 'Registrar');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+8))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+9), 'Date: '.date('m/d/Y'));
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+9))->getFont()->setBold(true);
+
+        // set column to auto sized
+        $this->excel->getActiveSheet()->getColumnDimension('B')->setAutoSize(TRUE);
+        $this->excel->getActiveSheet()->getColumnDimension('C')->setAutoSize(TRUE);
+
+        // set filename
+        $filename = 'THIEP-STUDENTS-DAILY-ATTENDANCE-REPORT-'.date('Y-m-d').'.xlsx';
+        // header('Content-Type: application/vnd.ms-excel'); //mime type
+        // Redirect output to a client’s web browser (Excel2007)
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+        // If you're serving to IE over SSL, then the following may be needed
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
+                    
+        //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
+        //if you want to save it as .XLSX Excel 2007 format
+        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');  
+        //force user to download the Excel file without writing it to server's HD
+        return $objWriter->save('php://output');
+    }
+
+    /**
      * generateStudentAttendanceByVocationalProgramCsv function.
      * 
      * @access public
@@ -97,10 +214,19 @@ class Admin_report_model extends CI_Model {
             $target_cell++;
         }
 
+        //set singed footer
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+5), 'Verified and Assessed by:');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+5))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+7), 'Mustafa Hassan Al Sulayyil');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+7))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+8), 'Registrar');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+8))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+9), 'Date: '.date('m/d/Y'));
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+9))->getFont()->setBold(true);
+
         // set column to auto sized
         $this->excel->getActiveSheet()->getColumnDimension('B')->setAutoSize(TRUE);
         $this->excel->getActiveSheet()->getColumnDimension('C')->setAutoSize(TRUE);
-        // $this->excel->getActiveSheet()->getColumnDimension('M')->setAutoSize(TRUE);
 
         // set filename
         $filename = "THIEP-".$voc_program['voc_program']."-ATTENDANCE-REPORT-".date('Y-m-d').".xlsx";
@@ -214,6 +340,16 @@ class Admin_report_model extends CI_Model {
             $target_cell++;
         }
 
+        //set singed footer
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+5), 'Verified and Assessed by:');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+5))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+7), 'Mustafa Hassan Al Sulayyil');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+7))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+8), 'Registrar');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+8))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+9), 'Date: '.date('m/d/Y'));
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+9))->getFont()->setBold(true);
+
         // set column to auto sized
         $this->excel->getActiveSheet()->getColumnDimension('B')->setAutoSize(TRUE);
         $this->excel->getActiveSheet()->getColumnDimension('C')->setAutoSize(TRUE);
@@ -319,10 +455,20 @@ class Admin_report_model extends CI_Model {
             $target_cell++;
         }
 
+        //set singed footer
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+5), 'Verified and Assessed by:');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+5))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+7), 'Mustafa Hassan Al Sulayyil');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+7))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+8), 'Registrar');
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+8))->getFont()->setBold(true);
+        $this->excel->getActiveSheet()->setCellValue('C'.($target_cell+9), 'Date: '.date('m/d/Y'));
+        $this->excel->getActiveSheet()->getStyle('C'.($target_cell+9))->getFont()->setBold(true);
+
         // set column to auto sized
         $this->excel->getActiveSheet()->getColumnDimension('B')->setAutoSize(TRUE);
         $this->excel->getActiveSheet()->getColumnDimension('C')->setAutoSize(TRUE);
-        $this->excel->getActiveSheet()->getColumnDimension('M')->setAutoSize(TRUE);
+        // $this->excel->getActiveSheet()->getColumnDimension('M')->setAutoSize(TRUE);
 
         // set filename
         $filename = "THIEP-".$con['subject_code']."-REMARKS-REPORT-".date('Y-m-d').".xlsx";

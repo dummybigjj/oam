@@ -21,11 +21,12 @@
                         <thead>
                           <tr>                            
                             <th>Batch Name</th>
-                            <th>Attendance Report</th>
-                            <th>Attendance Report</th>
-                            <th>Enlistment Report</th>
-                            <th>Enlistment Report</th>
-                            <th>Remarks Report</th>
+                            <th>Attendance</th>
+                            <th>Attendance</th>
+                            <th>Enlistment</th>
+                            <th>Enlistment</th>
+                            <th>Remarks</th>
+                            <th>Students</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -78,6 +79,15 @@
                                     </div>
                                   <?php endif; ?>
                                 </td>
+                                <td>
+                                  <?php if($this->session->userdata('designation')!='Program Head'): ?>
+                                    <button type="button" class="btn btn-danger" onclick="generate_students_report(<?php echo $value['batch_year_id'];?>)"> <i class="icon-list" aria-hidden="true"></i> All Students </button>
+                                  <?php else: ?>
+                                    <div class="alert alert-danger" role="alert" style="margin: 0 auto">
+                                      <i class="fa fa-ban fa-lg"></i>
+                                    </div>
+                                  <?php endif; ?>
+                                </td>
                               </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -85,11 +95,12 @@
                         <tfoot>
                           <tr>
                             <th>Batch Name</th>
-                            <th>Attendance Report</th>
-                            <th>Attendance Report</th>
-                            <th>Enlistment Report</th>
-                            <th>Enlistment Report</th>
-                            <th>Remarks Report</th>
+                            <th>Attendance</th>
+                            <th>Attendance</th>
+                            <th>Enlistment</th>
+                            <th>Enlistment</th>
+                            <th>Remarks</th>
+                            <th>Students</th>
                           </tr>
                         </tfoot>
                       </table>
@@ -121,6 +132,13 @@ function generate_voc_program_enlistment_report(id){
   $('[name="batch_year_id"]').val(id);
   $('#GenerateVocProgramEnlistmentReport').modal('show');
   $('.modal-title').text('Generate Vocational Program Enlistment Report');
+}
+
+function generate_students_report(id){
+  $('#formGenerateStudentsAttendanceReport')[0].reset();
+  $('[name="batch_year_id"]').val(id);
+  $('#GenerateStudentsAttendanceReport').modal('show');
+  $('.modal-title').text('Generate All Students Attendance Report');
 }
 
 function generate_subject_code_remarks_report(id) {

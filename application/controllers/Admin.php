@@ -147,8 +147,8 @@ class Admin extends CI_Controller{
         $this->load->view('oam-users/oam-admin/admin-modals/generate-voc-program-enlistment-report-modal',$data);
         $this->load->view('oam-users/oam-admin/admin-modals/generate-subject-code-report-modal');
         $this->load->view('oam-users/oam-admin/admin-modals/generate-subject-code-enlistment-report-modal');
+        $this->load->view('oam-users/oam-admin/admin-modals/generate-students-attendance-report-modal');
         $this->load->view('oam-users/oam-admin/admin-modals/generate-subject-code-remarks-report-modal');
-
         // Page footer
         $this->load->view('templates/footer');
     }
@@ -185,74 +185,6 @@ class Admin extends CI_Controller{
         $data = $this->admin_model->getHistoryLogs(array('tbl_id'=>$id));
         echo json_encode($data);
     }
-
-    // /**
-    //  * admin_generate_voc_program_attendance_report function.
-    //  * Deprecated 10/11/2018
-    //  * 
-    //  * @access public
-    //  * @return csv|pdf attendance report by vocational program
-    //  */
-    // public function admin_generate_voc_program_attendance_report(){
-    //     $this->crud->credibilityAuth(array('Administrator','Registrar'));
-    //     // get students with vocational program
-    //     $condition= array('vocational_program'=>$this->input->post('vocational_program'),'batch_year'=> $this->input->post('batch_year_id'));
-    //     $range1 = $this->input->post('date_range1');
-    //     $range2 = $this->input->post('date_range2');
-    //     $voc_program= $this->vocational_program_model->getVocationalPrograms('s',array('voc_program_id'=>$condition['vocational_program']));
-    //     $students   = $this->admin_model->getStudentsBasicInfo($condition,'a');
-    //     $attendance = $this->admin_model->getStudentDailyAttendanceRecord($students,$range1,$range2,$condition['batch_year']);
-
-    //     if((!empty($condition['vocational_program']) && !empty($range1) && !empty($range2)) && ($range1 <= $range2)){
-    //         if(!empty($attendance)){
-    //             if($this->input->post('export_csv')){
-    //                 $this->admin_report_model->generateVocProgramAttendanceReportCsv($attendance,$voc_program,$range1,$range2);
-    //                 exit;
-    //             }else if($this->input->post('export_pdf')){
-    //                 $this->admin_report_model->generateVocProgramAttendanceReportPdf($attendance,$voc_program,$range1,$range2);
-    //             }
-    //         }
-    //         $this->session->set_flashdata('warning', 'No reports found!.');
-    //         redirect('attendance_report');
-    //     }
-    //     $this->session->set_flashdata('danger', 'Invalid input.');
-    //     redirect('attendance_report');
-    // }
-
-    // /**
-    //  * admin_generate_subject_code_attendance_report function.
-    //  * Deprecated 10/11/2018
-    //  * 
-    //  * @access public
-    //  * @return csv|pdf attendance report by subject code
-    //  */
-    // public function admin_generate_subject_code_attendance_report(){
-    //     $this->crud->credibilityAuth(array('Administrator','Registrar'));
-    //     // get students with vocational program
-    //     $condition= array('subject_code'=>$this->input->post('subject_code'),'batch_year'=> $this->input->post('batch_year_id'));
-    //     $range1 = $this->input->post('date_range1');
-    //     $range2 = $this->input->post('date_range2');
-        
-    //     $students   = $this->admin_model->getStudentsBasicInfo($condition,'a');
-    //     $attendance = $this->admin_model->getStudentSubjectCodeAttendanceRecord($students,$range1,$range2,$condition['subject_code'],$condition['batch_year']);
-        
-    //     if((!empty($condition['subject_code']) && !empty($range1) && !empty($range2)) && ($range1 <= $range2)){
-    //         if(!empty($attendance)){
-    //             if($this->input->post('export_csv')){
-    //                 $this->admin_report_model->generateSubjectCodeAttendanceReportCsv($attendance,$condition,$range1,$range2);
-    //                 exit;
-    //             }else if($this->input->post('export_pdf')){
-    //                 $this->admin_report_model->generateSubjectCodeAttendanceReportPdf($attendance,$condition,$range1,$range2);
-    //             }
-                
-    //         }
-    //         $this->session->set_flashdata('warning', 'No reports found!.');
-    //         redirect('attendance_report');
-    //     }
-    //     $this->session->set_flashdata('danger', 'Invalid input.');
-    //     redirect('attendance_report');
-    // }
-
 
     /*************************** Start Action controllers for generating enlistment report ***************************/
 
@@ -345,11 +277,47 @@ class Admin extends CI_Controller{
                 }
             }
             $this->session->set_flashdata('warning', 'No reports found!.');
-            redirect('attendance_report');
+        }else{
+            $this->session->set_flashdata('danger', 'Invalid input.');
         }
-        $this->session->set_flashdata('danger', 'Invalid input.');
         redirect('attendance_report');
-        
+    }
+
+    /**
+     * generate_students_attendance_report function.     
+     * 
+     * @access public
+     * @return csv students attendance report
+     */
+    public function generate_students_attendance_report()
+    {
+        $this->crud->credibilityAuth(array('Administrator','Registrar'));
+        // get inputs
+        $condition= array('batch_year'=>$this->input->post('batch_year_id'));
+        $range1 = $this->input->post('date_range1');
+        $range2 = $this->input->post('date_range2');
+        // get necessary report data
+        $students   = $this->admin_model->getStudentsInfo($condition,'a');
+        $attendance = $this->admin_model->getStudentsDailyAttendanceRecord($condition['batch_year'],$range1,$range2);
+        $att_record = $this->admin_model->getStudentDailyAttendanceRecord($students,$range1,$range2,$condition['batch_year']);
+        $att_dates  = $this->crud->getDistinctValueOnAssociativeArray($attendance,'attendance_date');
+
+        // generate report data in xlsx format from admin_report_model
+        if(!empty($attendance))
+        {
+            if($this->input->post('export_csv'))
+            {
+                $this->admin_report_model->generateStudentsAttendanceXlsx($attendance,$att_record,$att_dates,$range1,$range2);
+                exit;
+            }else
+            {
+                $this->session->set_flashdata('danger', 'Error occured!.');
+            }
+        }else
+        {
+            $this->session->set_flashdata('warning', 'No reports found!.');            
+        }
+        redirect('attendance_report');
     }
 
     /**
@@ -388,8 +356,6 @@ class Admin extends CI_Controller{
     }
 
     /*************************** End Action controllers for generating attendance report ***************************/
-
-
 
 
     /*************************** Start Action controllers for generating remarks report ***************************/

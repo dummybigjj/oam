@@ -63,6 +63,21 @@ class Admin_model extends CI_Model {
 	}
 
 	/**
+	 * getStudentsBasicInfo function.
+	 * 
+	 * @access public
+	 * @param associative array $condition
+	 * @param char $return_type
+	 * @return associative array on success.
+	 */
+	public function getStudentsInfo($condition,$return_type){
+		$select = '`student_subject`.`student_id`, `student`.`student_no`, `student`.`arabic_name`, `student`.`english_name`, `student`.`remarks` as preferred_course';
+		$join   = array('`student`'=>'`student_subject`.`student_id` = `student`.`student_id`');
+		$data   = $this->crud->getJoinDataWithSort($select,$return_type,$condition,$join,'`student`.`arabic_name` ASC','tbl9');
+		return $this->removeDuplicateDataOnAssociativeArray($data,'student_id');
+	}
+
+	/**
 	 * getSubjectCodeOpenedForSpecificBatchYear function.
 	 * 
 	 * @access public
@@ -86,13 +101,41 @@ class Admin_model extends CI_Model {
 	public function removeDuplicateData($data = array(),$unique_key){
 		$temp = '';
 		$new_data = array();
-		$ctr = 0;
 		for ($i=0; $i < count($data); $i++) { 
 			if($data[$i][$unique_key]!=$temp){
-				$new_data[$ctr] = $data[$i];
-				$ctr++;
+				$new_data[] = $data[$i];				
 			}
 			$temp = $data[$i][$unique_key];
+		}
+		return $new_data;
+	}
+
+	/**
+	 * removeDuplicateDataOnAssociativeArray function.
+	 * 
+	 * @access public
+	 * @param associative array $data
+	 * @param mixed $unique_key
+	 * @return associative array on success.
+	 */
+	public function removeDuplicateDataOnAssociativeArray($data = array(),$unique_key){
+		$temp = array();
+		$new_data = array();
+		for ($i=0; $i < count($data); $i++) { 
+			if(!empty($temp)){
+				$ct = 0;
+				for ($a=0; $a < count($temp); $a++) { 
+					if($data[$i][$unique_key]==$temp[$a]){
+						$ct++;
+					}
+				}
+				if($ct==0){
+					$new_data[] = $data[$i];
+				}
+			}else{
+				$new_data[] = $data[$i];
+			}
+			$temp[] = $data[$i][$unique_key];
 		}
 		return $new_data;
 	}
@@ -260,7 +303,27 @@ class Admin_model extends CI_Model {
 	}
 
 	/** 
-	 * getStudentAttendanceByVocationalProgram function.
+	 * getStudentsDailyAttendanceRecord function.	 
+	 * 
+	 * @access public
+	 * @param int $batch_year_id
+	 * @param date $range1
+	 * @param date $range2
+	 * @return associative array attendance record on success.
+	 */
+	public function getStudentsDailyAttendanceRecord($batch_year_id,$range1,$range2){
+		$this->db->select('*');
+		$this->db->from('attendance_daily_record');
+		$this->db->where('batch_year_id',$batch_year_id);
+		$this->db->where('attendance_date >=',$range1);
+		$this->db->where('attendance_date <=',$range2);
+		$this->db->order_by('attendance_date ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	/** 
+	 * getAttendanceWithinDateRange function.
 	 * 10/11/2018 commit
 	 * 
 	 * @access public
