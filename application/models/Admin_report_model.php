@@ -585,625 +585,625 @@ class Admin_report_model extends CI_Model {
         return fpassthru($f);
 	}
 
-	/**
-	 * generateVocProgramAttendanceReportPdf function.
-	 * 
-	 * @access public
-	 * @param associative array $attendance
-	 * @param associative array $voc_program
-	 * @param date $range1
-	 * @param date $range2
-	 * @return pdf file on success.
-	 */
-	public function generateVocProgramAttendanceReportPdf($attendance = array(),$voc_program = array(),$range1,$range2){
-		//============================================================+
-        // File name   : example_001.php
-        // Begin       : 2008-03-04
-        // Last Update : 2013-05-14
-        //
-        // Description : Example 001 for TCPDF class
-        //               Default Header and Footer
-        //
-        // Author: Nicola Asuni
-        //
-        // (c) Copyright:
-        //               Nicola Asuni
-        //               Tecnick.com LTD
-        //               www.tecnick.com
-        //               info@tecnick.com
-        //============================================================+
+	// /**
+	//  * generateVocProgramAttendanceReportPdf function.
+	//  * 
+	//  * @access public
+	//  * @param associative array $attendance
+	//  * @param associative array $voc_program
+	//  * @param date $range1
+	//  * @param date $range2
+	//  * @return pdf file on success.
+	//  */
+	// public function generateVocProgramAttendanceReportPdf($attendance = array(),$voc_program = array(),$range1,$range2){
+	// 	//============================================================+
+ //        // File name   : example_001.php
+ //        // Begin       : 2008-03-04
+ //        // Last Update : 2013-05-14
+ //        //
+ //        // Description : Example 001 for TCPDF class
+ //        //               Default Header and Footer
+ //        //
+ //        // Author: Nicola Asuni
+ //        //
+ //        // (c) Copyright:
+ //        //               Nicola Asuni
+ //        //               Tecnick.com LTD
+ //        //               www.tecnick.com
+ //        //               info@tecnick.com
+ //        //============================================================+
      
-        /**
-        * Creates an example PDF TEST document using TCPDF
-        * @package com.tecnick.tcpdf
-        * @abstract TCPDF - Example: Default Header and Footer
-        * @author Nicola Asuni
-        * @since 2008-03-04
-        */
+ //        /**
+ //        * Creates an example PDF TEST document using TCPDF
+ //        * @package com.tecnick.tcpdf
+ //        * @abstract TCPDF - Example: Default Header and Footer
+ //        * @author Nicola Asuni
+ //        * @since 2008-03-04
+ //        */
      
-        // create new PDF document
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
+ //        // create new PDF document
+ //        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
      
-        // set document information
-        // $pdf->SetCreator(PDF_CREATOR);
-        // $pdf->SetAuthor('Nicola Asuni');
-        // $pdf->SetTitle('TCPDF Example 001');
-        // $pdf->SetSubject('TCPDF Tutorial');
-        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
+ //        // set document information
+ //        // $pdf->SetCreator(PDF_CREATOR);
+ //        // $pdf->SetAuthor('Nicola Asuni');
+ //        // $pdf->SetTitle('TCPDF Example 001');
+ //        // $pdf->SetSubject('TCPDF Tutorial');
+ //        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
      
-        // set default header data
-        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
+ //        // set default header data
+ //        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+ //        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
      
-        // set header and footer fonts
-        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+ //        // set header and footer fonts
+ //        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+ //        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
      
-        // set default monospaced font
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
+ //        // set default monospaced font
+ //        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
      
-        // set margins
-        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
+ //        // set margins
+ //        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+ //        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+ //        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
      
-        // set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
+ //        // set auto page breaks
+ //        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
      
-        // set image scale factor
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
+ //        // set image scale factor
+ //        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
      
-        // set some language-dependent strings (optional)
-        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-            require_once(dirname(__FILE__).'/lang/eng.php');
-            $pdf->setLanguageArray($l);
-        }   
+ //        // set some language-dependent strings (optional)
+ //        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+ //            require_once(dirname(__FILE__).'/lang/eng.php');
+ //            $pdf->setLanguageArray($l);
+ //        }   
      
-        // ---------------------------------------------------------    
+ //        // ---------------------------------------------------------    
      
-        // set default font subsetting mode
-        $pdf->setFontSubsetting(true);   
+ //        // set default font subsetting mode
+ //        $pdf->setFontSubsetting(true);   
      
-        // Set font
-        // dejavusans is a UTF-8 Unicode font, if you only need to
-        // print standard ASCII chars, you can use core fonts like
-        // helvetica or times to reduce file size.
-        $pdf->SetFont('times', '', 14, '', true); 
+ //        // Set font
+ //        // dejavusans is a UTF-8 Unicode font, if you only need to
+ //        // print standard ASCII chars, you can use core fonts like
+ //        // helvetica or times to reduce file size.
+ //        $pdf->SetFont('times', '', 14, '', true); 
 
-        $pdf->SetPrintHeader(false);  
+ //        $pdf->SetPrintHeader(false);  
      
-        // Add a page
-        // This method has several options, check the source code documentation for more information.
-        // The array() inside AddPage method defines the size of the page
-        $pdf->AddPage('L','A4'); 
+ //        // Add a page
+ //        // This method has several options, check the source code documentation for more information.
+ //        // The array() inside AddPage method defines the size of the page
+ //        $pdf->AddPage('L','A4'); 
      
-        // set text shadow effect
-        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+ //        // set text shadow effect
+ //        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
      
-        // Set some content to print
-        $html = '
-        <table style="width:70%;font-size:12px;">
-            <tr>
-                <td style="width:25%;">Attendance Report</td>
-                <td>Thiep</td>
-            </tr>
-            <tr>
-                <td>Vocational Program:</td>
-                <td>'.$voc_program['voc_program'].'-'.$voc_program['voc_program_acronym'].'</td>
-            </tr>
-            <tr>
-                <td>Report Date Range:</td>
-                <td>'.date('F d, Y',strtotime($range1)).' - '.date('F d, Y',strtotime($range2)).'</td>
-            </tr>
-        </table><br>';
+ //        // Set some content to print
+ //        $html = '
+ //        <table style="width:70%;font-size:12px;">
+ //            <tr>
+ //                <td style="width:25%;">Attendance Report</td>
+ //                <td>Thiep</td>
+ //            </tr>
+ //            <tr>
+ //                <td>Vocational Program:</td>
+ //                <td>'.$voc_program['voc_program'].'-'.$voc_program['voc_program_acronym'].'</td>
+ //            </tr>
+ //            <tr>
+ //                <td>Report Date Range:</td>
+ //                <td>'.date('F d, Y',strtotime($range1)).' - '.date('F d, Y',strtotime($range2)).'</td>
+ //            </tr>
+ //        </table><br>';
 
-        $html1 = '<table border="1" style="width:100%;font-size:12px;">
-                    <tr>
-                        <td style="width:9%;">STUDENT NO.</td>
-                        <td style="width:33%;">STUDENT NAME</td>
-                        <td style="width:7%;">PRESENT</td>
-                        <td style="width:8%;">ABSENCES</td>
-                        <td style="width:5%;">LATES</td>
-                        <td style="width:6%;">EXCUSE</td>
-                        <td style="width:8%;">VACATIONS</td>
-                        <td style="width:6%;">SCORES</td>
-                        <td style="width:7%;">REMARKS</td>
-                        <td style="width:11%;">PREF. COURSE</td>
-                    </tr>';
+ //        $html1 = '<table border="1" style="width:100%;font-size:12px;">
+ //                    <tr>
+ //                        <td style="width:9%;">STUDENT NO.</td>
+ //                        <td style="width:33%;">STUDENT NAME</td>
+ //                        <td style="width:7%;">PRESENT</td>
+ //                        <td style="width:8%;">ABSENCES</td>
+ //                        <td style="width:5%;">LATES</td>
+ //                        <td style="width:6%;">EXCUSE</td>
+ //                        <td style="width:8%;">VACATIONS</td>
+ //                        <td style="width:6%;">SCORES</td>
+ //                        <td style="width:7%;">REMARKS</td>
+ //                        <td style="width:11%;">PREF. COURSE</td>
+ //                    </tr>';
 
-        for ($i=0; $i < count($attendance); $i++) { 
+ //        for ($i=0; $i < count($attendance); $i++) { 
                     
-        $html1 .=   '<tr>
-                        <td>'.$attendance[$i]['student_no'].'</td>
-                        <td>'.$attendance[$i]['arabic_name'].'</td>
-                        <td>'.$attendance[$i]['presents'].'</td>
-                        <td>'.$attendance[$i]['absences'].'</td>
-                        <td>'.$attendance[$i]['lates'].'</td>
-                        <td>'.$attendance[$i]['excuses'].'</td>
-                        <td>'.$attendance[$i]['vacations'].'</td>
-                        <td>'.$attendance[$i]['points'].'</td>
-                        <td>'.$attendance[$i]['remarks'].'</td>
-                        <td>'.$attendance[$i]['preferred_course'].'</td>
-                    </tr>';
-        }                    
+ //        $html1 .=   '<tr>
+ //                        <td>'.$attendance[$i]['student_no'].'</td>
+ //                        <td>'.$attendance[$i]['arabic_name'].'</td>
+ //                        <td>'.$attendance[$i]['presents'].'</td>
+ //                        <td>'.$attendance[$i]['absences'].'</td>
+ //                        <td>'.$attendance[$i]['lates'].'</td>
+ //                        <td>'.$attendance[$i]['excuses'].'</td>
+ //                        <td>'.$attendance[$i]['vacations'].'</td>
+ //                        <td>'.$attendance[$i]['points'].'</td>
+ //                        <td>'.$attendance[$i]['remarks'].'</td>
+ //                        <td>'.$attendance[$i]['preferred_course'].'</td>
+ //                    </tr>';
+ //        }                    
 
-        $html1 .= '</table><br><br>
+ //        $html1 .= '</table><br><br>
 
-        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
+ //        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
 
-        ';
+ //        ';
      
-        // Print text using writeHTMLCell()
-        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
-        // ---------------------------------------------------------    
+ //        // Print text using writeHTMLCell()
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
+ //        // ---------------------------------------------------------    
      
-        // Close and output PDF document
-        // This method has several options, check the source code documentation for more information.
+ //        // Close and output PDF document
+ //        // This method has several options, check the source code documentation for more information.
 
-        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
-        return $pdf->Output('Thiep-'.$voc_program['voc_program_acronym'].'-Attendance-Report'.date('Y-m-d').'.pdf', 'D');   
-        // D FOR FORCE DOWNLOAD 
+ //        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
+ //        return $pdf->Output('Thiep-'.$voc_program['voc_program_acronym'].'-Attendance-Report'.date('Y-m-d').'.pdf', 'D');   
+ //        // D FOR FORCE DOWNLOAD 
      
-        //============================================================+
-        // END OF FILE
-        //============================================================+
-	}
+ //        //============================================================+
+ //        // END OF FILE
+ //        //============================================================+
+	// }
 
-	/**
-	 * generateSubjectCodeAttendanceReportPdf function.
-	 * 
-	 * @access public
-	 * @param associative array $attendance
-	 * @param associative array $condition
-	 * @param date $range1
-	 * @param date $range2
-	 * @return pdf file on success.
-	 */
-	public function generateSubjectCodeAttendanceReportPdf($attendance = array(),$condition = array(),$range1,$range2){
-		//============================================================+
-        // File name   : example_001.php
-        // Begin       : 2008-03-04
-        // Last Update : 2013-05-14
-        //
-        // Description : Example 001 for TCPDF class
-        //               Default Header and Footer
-        //
-        // Author: Nicola Asuni
-        //
-        // (c) Copyright:
-        //               Nicola Asuni
-        //               Tecnick.com LTD
-        //               www.tecnick.com
-        //               info@tecnick.com
-        //============================================================+
+	// /**
+	//  * generateSubjectCodeAttendanceReportPdf function.
+	//  * 
+	//  * @access public
+	//  * @param associative array $attendance
+	//  * @param associative array $condition
+	//  * @param date $range1
+	//  * @param date $range2
+	//  * @return pdf file on success.
+	//  */
+	// public function generateSubjectCodeAttendanceReportPdf($attendance = array(),$condition = array(),$range1,$range2){
+	// 	//============================================================+
+ //        // File name   : example_001.php
+ //        // Begin       : 2008-03-04
+ //        // Last Update : 2013-05-14
+ //        //
+ //        // Description : Example 001 for TCPDF class
+ //        //               Default Header and Footer
+ //        //
+ //        // Author: Nicola Asuni
+ //        //
+ //        // (c) Copyright:
+ //        //               Nicola Asuni
+ //        //               Tecnick.com LTD
+ //        //               www.tecnick.com
+ //        //               info@tecnick.com
+ //        //============================================================+
      
-        /**
-        * Creates an example PDF TEST document using TCPDF
-        * @package com.tecnick.tcpdf
-        * @abstract TCPDF - Example: Default Header and Footer
-        * @author Nicola Asuni
-        * @since 2008-03-04
-        */
+ //        /**
+ //        * Creates an example PDF TEST document using TCPDF
+ //        * @package com.tecnick.tcpdf
+ //        * @abstract TCPDF - Example: Default Header and Footer
+ //        * @author Nicola Asuni
+ //        * @since 2008-03-04
+ //        */
      
-        // create new PDF document
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
+ //        // create new PDF document
+ //        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
      
-        // set document information
-        // $pdf->SetCreator(PDF_CREATOR);
-        // $pdf->SetAuthor('Nicola Asuni');
-        // $pdf->SetTitle('TCPDF Example 001');
-        // $pdf->SetSubject('TCPDF Tutorial');
-        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
+ //        // set document information
+ //        // $pdf->SetCreator(PDF_CREATOR);
+ //        // $pdf->SetAuthor('Nicola Asuni');
+ //        // $pdf->SetTitle('TCPDF Example 001');
+ //        // $pdf->SetSubject('TCPDF Tutorial');
+ //        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
      
-        // set default header data
-        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
+ //        // set default header data
+ //        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+ //        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
      
-        // set header and footer fonts
-        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+ //        // set header and footer fonts
+ //        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+ //        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
      
-        // set default monospaced font
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
+ //        // set default monospaced font
+ //        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
      
-        // set margins
-        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
+ //        // set margins
+ //        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+ //        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+ //        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
      
-        // set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
+ //        // set auto page breaks
+ //        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
      
-        // set image scale factor
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
+ //        // set image scale factor
+ //        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
      
-        // set some language-dependent strings (optional)
-        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-            require_once(dirname(__FILE__).'/lang/eng.php');
-            $pdf->setLanguageArray($l);
-        }   
+ //        // set some language-dependent strings (optional)
+ //        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+ //            require_once(dirname(__FILE__).'/lang/eng.php');
+ //            $pdf->setLanguageArray($l);
+ //        }   
      
-        // ---------------------------------------------------------    
+ //        // ---------------------------------------------------------    
      
-        // set default font subsetting mode
-        $pdf->setFontSubsetting(true);   
+ //        // set default font subsetting mode
+ //        $pdf->setFontSubsetting(true);   
      
-        // Set font
-        // dejavusans is a UTF-8 Unicode font, if you only need to
-        // print standard ASCII chars, you can use core fonts like
-        // helvetica or times to reduce file size.
-        $pdf->SetFont('times', '', 14, '', true); 
+ //        // Set font
+ //        // dejavusans is a UTF-8 Unicode font, if you only need to
+ //        // print standard ASCII chars, you can use core fonts like
+ //        // helvetica or times to reduce file size.
+ //        $pdf->SetFont('times', '', 14, '', true); 
 
-        $pdf->SetPrintHeader(false);  
+ //        $pdf->SetPrintHeader(false);  
      
-        // Add a page
-        // This method has several options, check the source code documentation for more information.
-        // The array() inside AddPage method defines the size of the page
-        $pdf->AddPage('L','A4'); 
+ //        // Add a page
+ //        // This method has several options, check the source code documentation for more information.
+ //        // The array() inside AddPage method defines the size of the page
+ //        $pdf->AddPage('L','A4'); 
      
-        // set text shadow effect
-        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+ //        // set text shadow effect
+ //        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
      
-        // Set some content to print
-        $html = '
-        <table style="width:70%;font-size:12px;">
-            <tr>
-                <td style="width:25%;">Attendance Report</td>
-                <td>Thiep</td>
-            </tr>
-            <tr>
-                <td>Subject Code:</td>
-                <td>'.$condition['subject_code'].'</td>
-            </tr>
-            <tr>
-                <td>Report Date Range:</td>
-                <td>'.date('F d, Y',strtotime($range1)).' - '.date('F d, Y',strtotime($range2)).'</td>
-            </tr>
-        </table><br>';
+ //        // Set some content to print
+ //        $html = '
+ //        <table style="width:70%;font-size:12px;">
+ //            <tr>
+ //                <td style="width:25%;">Attendance Report</td>
+ //                <td>Thiep</td>
+ //            </tr>
+ //            <tr>
+ //                <td>Subject Code:</td>
+ //                <td>'.$condition['subject_code'].'</td>
+ //            </tr>
+ //            <tr>
+ //                <td>Report Date Range:</td>
+ //                <td>'.date('F d, Y',strtotime($range1)).' - '.date('F d, Y',strtotime($range2)).'</td>
+ //            </tr>
+ //        </table><br>';
 
-        $html1 = '<table border="1" style="width:100%;font-size:12px;">
-                    <tr>
-                        <td style="width:9%;">STUDENT NO.</td>
-                        <td style="width:33%;">STUDENT NAME</td>
-                        <td style="width:7%;">PRESENT</td>
-                        <td style="width:8%;">ABSENCES</td>
-                        <td style="width:5%;">LATES</td>
-                        <td style="width:6%;">EXCUSE</td>
-                        <td style="width:8%;">VACATIONS</td>
-                        <td style="width:6%;">SCORES</td>
-                        <td style="width:7%;">REMARKS</td>
-                        <td style="width:11%;">PREF. COURSE</td>
-                    </tr>';
+ //        $html1 = '<table border="1" style="width:100%;font-size:12px;">
+ //                    <tr>
+ //                        <td style="width:9%;">STUDENT NO.</td>
+ //                        <td style="width:33%;">STUDENT NAME</td>
+ //                        <td style="width:7%;">PRESENT</td>
+ //                        <td style="width:8%;">ABSENCES</td>
+ //                        <td style="width:5%;">LATES</td>
+ //                        <td style="width:6%;">EXCUSE</td>
+ //                        <td style="width:8%;">VACATIONS</td>
+ //                        <td style="width:6%;">SCORES</td>
+ //                        <td style="width:7%;">REMARKS</td>
+ //                        <td style="width:11%;">PREF. COURSE</td>
+ //                    </tr>';
 
-        for ($i=0; $i < count($attendance); $i++) { 
+ //        for ($i=0; $i < count($attendance); $i++) { 
                     
-        $html1 .=   '<tr>
-                        <td>'.$attendance[$i]['student_no'].'</td>
-                        <td>'.$attendance[$i]['arabic_name'].'</td>
-                        <td>'.$attendance[$i]['presents'].'</td>
-                        <td>'.$attendance[$i]['absences'].'</td>
-                        <td>'.$attendance[$i]['lates'].'</td>
-                        <td>'.$attendance[$i]['excuses'].'</td>
-                        <td>'.$attendance[$i]['vacations'].'</td>
-                        <td>'.$attendance[$i]['points'].'</td>
-                        <td>'.$attendance[$i]['remarks'].'</td>
-                        <td>'.$attendance[$i]['preferred_course'].'</td>
-                    </tr>';
-        }                    
+ //        $html1 .=   '<tr>
+ //                        <td>'.$attendance[$i]['student_no'].'</td>
+ //                        <td>'.$attendance[$i]['arabic_name'].'</td>
+ //                        <td>'.$attendance[$i]['presents'].'</td>
+ //                        <td>'.$attendance[$i]['absences'].'</td>
+ //                        <td>'.$attendance[$i]['lates'].'</td>
+ //                        <td>'.$attendance[$i]['excuses'].'</td>
+ //                        <td>'.$attendance[$i]['vacations'].'</td>
+ //                        <td>'.$attendance[$i]['points'].'</td>
+ //                        <td>'.$attendance[$i]['remarks'].'</td>
+ //                        <td>'.$attendance[$i]['preferred_course'].'</td>
+ //                    </tr>';
+ //        }                    
 
-        $html1 .= '</table><br><br>
+ //        $html1 .= '</table><br><br>
 
-        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
+ //        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
 
-        ';
+ //        ';
      
-        // Print text using writeHTMLCell()
-        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
-        // ---------------------------------------------------------    
+ //        // Print text using writeHTMLCell()
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
+ //        // ---------------------------------------------------------    
      
-        // Close and output PDF document
-        // This method has several options, check the source code documentation for more information.
+ //        // Close and output PDF document
+ //        // This method has several options, check the source code documentation for more information.
 
-        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
-        return $pdf->Output('Thiep-'.$condition['subject_code'].'-Attendance-Report'.date('Y-m-d').'.pdf', 'D');   
-        // D FOR FORCE DOWNLOAD 
+ //        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
+ //        return $pdf->Output('Thiep-'.$condition['subject_code'].'-Attendance-Report'.date('Y-m-d').'.pdf', 'D');   
+ //        // D FOR FORCE DOWNLOAD 
      
-        //============================================================+
-        // END OF FILE
-        //============================================================+
-	}
+ //        //============================================================+
+ //        // END OF FILE
+ //        //============================================================+
+	// }
 
-	/**
-	 * generateVocProgramEnlistmentReportCsv function.
-	 * 
-	 * @access public
-	 * @param associative array $voc_program
-	 * @param associative array $students
-	 * @return pdf file on success.
-	 */
-	public function generateVocProgramEnlistmentReportPdf($voc_program = array(),$students = array()){
-		//============================================================+
-        // File name   : example_001.php
-        // Begin       : 2008-03-04
-        // Last Update : 2013-05-14
-        //
-        // Description : Example 001 for TCPDF class
-        //               Default Header and Footer
-        //
-        // Author: Nicola Asuni
-        //
-        // (c) Copyright:
-        //               Nicola Asuni
-        //               Tecnick.com LTD
-        //               www.tecnick.com
-        //               info@tecnick.com
-        //============================================================+
+	// /**
+	//  * generateVocProgramEnlistmentReportCsv function.
+	//  * 
+	//  * @access public
+	//  * @param associative array $voc_program
+	//  * @param associative array $students
+	//  * @return pdf file on success.
+	//  */
+	// public function generateVocProgramEnlistmentReportPdf($voc_program = array(),$students = array()){
+	// 	//============================================================+
+ //        // File name   : example_001.php
+ //        // Begin       : 2008-03-04
+ //        // Last Update : 2013-05-14
+ //        //
+ //        // Description : Example 001 for TCPDF class
+ //        //               Default Header and Footer
+ //        //
+ //        // Author: Nicola Asuni
+ //        //
+ //        // (c) Copyright:
+ //        //               Nicola Asuni
+ //        //               Tecnick.com LTD
+ //        //               www.tecnick.com
+ //        //               info@tecnick.com
+ //        //============================================================+
      
-        /**
-        * Creates an example PDF TEST document using TCPDF
-        * @package com.tecnick.tcpdf
-        * @abstract TCPDF - Example: Default Header and Footer
-        * @author Nicola Asuni
-        * @since 2008-03-04
-        */
+ //        /**
+ //        * Creates an example PDF TEST document using TCPDF
+ //        * @package com.tecnick.tcpdf
+ //        * @abstract TCPDF - Example: Default Header and Footer
+ //        * @author Nicola Asuni
+ //        * @since 2008-03-04
+ //        */
      
-        // create new PDF document
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
+ //        // create new PDF document
+ //        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
      
-        // set document information
-        // $pdf->SetCreator(PDF_CREATOR);
-        // $pdf->SetAuthor('Nicola Asuni');
-        // $pdf->SetTitle('TCPDF Example 001');
-        // $pdf->SetSubject('TCPDF Tutorial');
-        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
+ //        // set document information
+ //        // $pdf->SetCreator(PDF_CREATOR);
+ //        // $pdf->SetAuthor('Nicola Asuni');
+ //        // $pdf->SetTitle('TCPDF Example 001');
+ //        // $pdf->SetSubject('TCPDF Tutorial');
+ //        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
      
-        // set default header data
-        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
+ //        // set default header data
+ //        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+ //        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
      
-        // set header and footer fonts
-        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+ //        // set header and footer fonts
+ //        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+ //        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
      
-        // set default monospaced font
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
+ //        // set default monospaced font
+ //        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
      
-        // set margins
-        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
+ //        // set margins
+ //        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+ //        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+ //        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
      
-        // set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
+ //        // set auto page breaks
+ //        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
      
-        // set image scale factor
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
+ //        // set image scale factor
+ //        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
      
-        // set some language-dependent strings (optional)
-        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-            require_once(dirname(__FILE__).'/lang/eng.php');
-            $pdf->setLanguageArray($l);
-        }   
+ //        // set some language-dependent strings (optional)
+ //        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+ //            require_once(dirname(__FILE__).'/lang/eng.php');
+ //            $pdf->setLanguageArray($l);
+ //        }   
      
-        // ---------------------------------------------------------    
+ //        // ---------------------------------------------------------    
      
-        // set default font subsetting mode
-        $pdf->setFontSubsetting(true);   
+ //        // set default font subsetting mode
+ //        $pdf->setFontSubsetting(true);   
      
-        // Set font
-        // dejavusans is a UTF-8 Unicode font, if you only need to
-        // print standard ASCII chars, you can use core fonts like
-        // helvetica or times to reduce file size.
-        $pdf->SetFont('times', '', 14, '', true); 
+ //        // Set font
+ //        // dejavusans is a UTF-8 Unicode font, if you only need to
+ //        // print standard ASCII chars, you can use core fonts like
+ //        // helvetica or times to reduce file size.
+ //        $pdf->SetFont('times', '', 14, '', true); 
 
-        $pdf->SetPrintHeader(false);  
+ //        $pdf->SetPrintHeader(false);  
      
-        // Add a page
-        // This method has several options, check the source code documentation for more information.
-        // The array() inside AddPage method defines the size of the page
-        $pdf->AddPage('L','A4'); 
+ //        // Add a page
+ //        // This method has several options, check the source code documentation for more information.
+ //        // The array() inside AddPage method defines the size of the page
+ //        $pdf->AddPage('L','A4'); 
      
-        // set text shadow effect
-        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+ //        // set text shadow effect
+ //        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
      
-        // Set some content to print
-        $html = '
-        <table style="width:70%;font-size:12px;">
-            <tr>
-                <td style="width:25%;">Enlistment Report</td>
-                <td>Thiep</td>
-            </tr>
-            <tr>
-                <td>Vocational Program:</td>
-                <td>'.$voc_program['voc_program'].'-'.$voc_program['voc_program_acronym'].'</td>
-            </tr>
-        </table><br>';
+ //        // Set some content to print
+ //        $html = '
+ //        <table style="width:70%;font-size:12px;">
+ //            <tr>
+ //                <td style="width:25%;">Enlistment Report</td>
+ //                <td>Thiep</td>
+ //            </tr>
+ //            <tr>
+ //                <td>Vocational Program:</td>
+ //                <td>'.$voc_program['voc_program'].'-'.$voc_program['voc_program_acronym'].'</td>
+ //            </tr>
+ //        </table><br>';
 
-        $html1 = '<table border="1" style="width:100%;font-size:12px;">
-                    <tr>
-                        <td style="width:10%;">ES</td>
-                        <td style="width:20%;">STUDENT NO.</td>
-                        <td style="width:70%;">STUDENT NAME</td>
-                    </tr>';
-        $ctr = 1;
-        for ($i=0; $i < count($students); $i++) { 
-        $html1 .=   '<tr>
-                        <td>'.$ctr.'</td>
-                        <td>'.$students[$i]['student_no'].'</td>
-                        <td>'.$students[$i]['arabic_name'].'</td>
-                    </tr>';
-            $ctr++;
-        }                    
+ //        $html1 = '<table border="1" style="width:100%;font-size:12px;">
+ //                    <tr>
+ //                        <td style="width:10%;">ES</td>
+ //                        <td style="width:20%;">STUDENT NO.</td>
+ //                        <td style="width:70%;">STUDENT NAME</td>
+ //                    </tr>';
+ //        $ctr = 1;
+ //        for ($i=0; $i < count($students); $i++) { 
+ //        $html1 .=   '<tr>
+ //                        <td>'.$ctr.'</td>
+ //                        <td>'.$students[$i]['student_no'].'</td>
+ //                        <td>'.$students[$i]['arabic_name'].'</td>
+ //                    </tr>';
+ //            $ctr++;
+ //        }                    
 
-        $html1 .= '</table><br><br>
+ //        $html1 .= '</table><br><br>
 
-        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
+ //        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
 
-        ';
+ //        ';
      
-        // Print text using writeHTMLCell()
-        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
-        // ---------------------------------------------------------    
+ //        // Print text using writeHTMLCell()
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
+ //        // ---------------------------------------------------------    
      
-        // Close and output PDF document
-        // This method has several options, check the source code documentation for more information.
+ //        // Close and output PDF document
+ //        // This method has several options, check the source code documentation for more information.
 
-        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
-        return $pdf->Output('Thiep-'.$voc_program['voc_program_acronym'].'-Enlistment-Report'.date('Y-m-d').'.pdf', 'D');   
-        // D FOR FORCE DOWNLOAD 
+ //        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
+ //        return $pdf->Output('Thiep-'.$voc_program['voc_program_acronym'].'-Enlistment-Report'.date('Y-m-d').'.pdf', 'D');   
+ //        // D FOR FORCE DOWNLOAD 
      
-        //============================================================+
-        // END OF FILE
-        //============================================================+
-	}
+ //        //============================================================+
+ //        // END OF FILE
+ //        //============================================================+
+	// }
 
-	/**
-	 * generateSubjectCodeEnlistmnentReportPdf function.
-	 * 
-	 * @access public
-	 * @param associative array $students
-	 * @param associative array $condition
-	 * @return pdf file on success.
-	 */
-	public function generateSubjectCodeEnlistmnentReportPdf($students = array(), $condition = array()){
-		//============================================================+
-        // File name   : example_001.php
-        // Begin       : 2008-03-04
-        // Last Update : 2013-05-14
-        //
-        // Description : Example 001 for TCPDF class
-        //               Default Header and Footer
-        //
-        // Author: Nicola Asuni
-        //
-        // (c) Copyright:
-        //               Nicola Asuni
-        //               Tecnick.com LTD
-        //               www.tecnick.com
-        //               info@tecnick.com
-        //============================================================+
+	// /**
+	//  * generateSubjectCodeEnlistmnentReportPdf function.
+	//  * 
+	//  * @access public
+	//  * @param associative array $students
+	//  * @param associative array $condition
+	//  * @return pdf file on success.
+	//  */
+	// public function generateSubjectCodeEnlistmnentReportPdf($students = array(), $condition = array()){
+	// 	//============================================================+
+ //        // File name   : example_001.php
+ //        // Begin       : 2008-03-04
+ //        // Last Update : 2013-05-14
+ //        //
+ //        // Description : Example 001 for TCPDF class
+ //        //               Default Header and Footer
+ //        //
+ //        // Author: Nicola Asuni
+ //        //
+ //        // (c) Copyright:
+ //        //               Nicola Asuni
+ //        //               Tecnick.com LTD
+ //        //               www.tecnick.com
+ //        //               info@tecnick.com
+ //        //============================================================+
      
-        /**
-        * Creates an example PDF TEST document using TCPDF
-        * @package com.tecnick.tcpdf
-        * @abstract TCPDF - Example: Default Header and Footer
-        * @author Nicola Asuni
-        * @since 2008-03-04
-        */
+ //        /**
+ //        * Creates an example PDF TEST document using TCPDF
+ //        * @package com.tecnick.tcpdf
+ //        * @abstract TCPDF - Example: Default Header and Footer
+ //        * @author Nicola Asuni
+ //        * @since 2008-03-04
+ //        */
      
-        // create new PDF document
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
+ //        // create new PDF document
+ //        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);    
      
-        // set document information
-        // $pdf->SetCreator(PDF_CREATOR);
-        // $pdf->SetAuthor('Nicola Asuni');
-        // $pdf->SetTitle('TCPDF Example 001');
-        // $pdf->SetSubject('TCPDF Tutorial');
-        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
+ //        // set document information
+ //        // $pdf->SetCreator(PDF_CREATOR);
+ //        // $pdf->SetAuthor('Nicola Asuni');
+ //        // $pdf->SetTitle('TCPDF Example 001');
+ //        // $pdf->SetSubject('TCPDF Tutorial');
+ //        // $pdf->SetKeywords('TCPDF, PDF, example, test, guide');   
      
-        // set default header data
-        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
+ //        // set default header data
+ //        // $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+ //        // $pdf->setFooterData(array(0,64,0), array(0,64,128)); 
      
-        // set header and footer fonts
-        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+ //        // set header and footer fonts
+ //        // $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+ //        // $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
      
-        // set default monospaced font
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
+ //        // set default monospaced font
+ //        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED); 
      
-        // set margins
-        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
+ //        // set margins
+ //        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+ //        // $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+ //        // $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);    
      
-        // set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
+ //        // set auto page breaks
+ //        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM); 
      
-        // set image scale factor
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
+ //        // set image scale factor
+ //        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);  
      
-        // set some language-dependent strings (optional)
-        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-            require_once(dirname(__FILE__).'/lang/eng.php');
-            $pdf->setLanguageArray($l);
-        }   
+ //        // set some language-dependent strings (optional)
+ //        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+ //            require_once(dirname(__FILE__).'/lang/eng.php');
+ //            $pdf->setLanguageArray($l);
+ //        }   
      
-        // ---------------------------------------------------------    
+ //        // ---------------------------------------------------------    
      
-        // set default font subsetting mode
-        $pdf->setFontSubsetting(true);   
+ //        // set default font subsetting mode
+ //        $pdf->setFontSubsetting(true);   
      
-        // Set font
-        // dejavusans is a UTF-8 Unicode font, if you only need to
-        // print standard ASCII chars, you can use core fonts like
-        // helvetica or times to reduce file size.
-        $pdf->SetFont('times', '', 14, '', true); 
+ //        // Set font
+ //        // dejavusans is a UTF-8 Unicode font, if you only need to
+ //        // print standard ASCII chars, you can use core fonts like
+ //        // helvetica or times to reduce file size.
+ //        $pdf->SetFont('times', '', 14, '', true); 
 
-        $pdf->SetPrintHeader(false);  
+ //        $pdf->SetPrintHeader(false);  
      
-        // Add a page
-        // This method has several options, check the source code documentation for more information.
-        // The array() inside AddPage method defines the size of the page
-        $pdf->AddPage('L','A4'); 
+ //        // Add a page
+ //        // This method has several options, check the source code documentation for more information.
+ //        // The array() inside AddPage method defines the size of the page
+ //        $pdf->AddPage('L','A4'); 
      
-        // set text shadow effect
-        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+ //        // set text shadow effect
+ //        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
      
-        // Set some content to print
-        $html = '
-        <table style="width:70%;font-size:12px;">
-            <tr>
-                <td style="width:25%;">Enlistment Report</td>
-                <td>Thiep</td>
-            </tr>
-            <tr>
-                <td>Subject Code:</td>
-                <td>'.$condition['subject_code'].'</td>
-            </tr>
-        </table><br>';
+ //        // Set some content to print
+ //        $html = '
+ //        <table style="width:70%;font-size:12px;">
+ //            <tr>
+ //                <td style="width:25%;">Enlistment Report</td>
+ //                <td>Thiep</td>
+ //            </tr>
+ //            <tr>
+ //                <td>Subject Code:</td>
+ //                <td>'.$condition['subject_code'].'</td>
+ //            </tr>
+ //        </table><br>';
 
-        $html1 = '<table border="1" style="width:100%;font-size:12px;">
-                    <tr>
-                        <td style="width:10%;">ES</td>
-                        <td style="width:20%;">STUDENT NO.</td>
-                        <td style="width:70%;">STUDENT NAME</td>
-                    </tr>';
+ //        $html1 = '<table border="1" style="width:100%;font-size:12px;">
+ //                    <tr>
+ //                        <td style="width:10%;">ES</td>
+ //                        <td style="width:20%;">STUDENT NO.</td>
+ //                        <td style="width:70%;">STUDENT NAME</td>
+ //                    </tr>';
 
-        for ($i=0; $i < count($students); $i++) { 
-        $ctr = 1;
-        $html1 .=   '<tr>
-                        <td>'.$ctr.'</td>
-                        <td>'.$students[$i]['student_no'].'</td>
-                        <td>'.$students[$i]['arabic_name'].'</td>
-                    </tr>';
-            $ctr++;
-        }                    
+ //        for ($i=0; $i < count($students); $i++) { 
+ //        $ctr = 1;
+ //        $html1 .=   '<tr>
+ //                        <td>'.$ctr.'</td>
+ //                        <td>'.$students[$i]['student_no'].'</td>
+ //                        <td>'.$students[$i]['arabic_name'].'</td>
+ //                    </tr>';
+ //            $ctr++;
+ //        }                    
 
-        $html1 .= '</table><br><br>
+ //        $html1 .= '</table><br><br>
 
-        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
+ //        <p style="font-size:12px;">Printed by: '.$this->session->userdata('u_full_name').'</p>
 
-        ';
+ //        ';
      
-        // Print text using writeHTMLCell()
-        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
-        // ---------------------------------------------------------    
+ //        // Print text using writeHTMLCell()
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+ //        $pdf->writeHTMLCell(0, 0, '', '', $html1, 0, 1, 0, true, '', true);
+ //        // ---------------------------------------------------------    
      
-        // Close and output PDF document
-        // This method has several options, check the source code documentation for more information.
+ //        // Close and output PDF document
+ //        // This method has several options, check the source code documentation for more information.
 
-        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
-        return $pdf->Output('Thiep-'.$condition['subject_code'].'-Enlistment-Report'.date('Y-m-d').'.pdf', 'D');   
-        // D FOR FORCE DOWNLOAD 
+ //        // $pdf->Output('example_001.pdf', 'I');  // FOR PREVIEW PURPOSES  
+ //        return $pdf->Output('Thiep-'.$condition['subject_code'].'-Enlistment-Report'.date('Y-m-d').'.pdf', 'D');   
+ //        // D FOR FORCE DOWNLOAD 
      
-        //============================================================+
-        // END OF FILE
-        //============================================================+
-	}
+ //        //============================================================+
+ //        // END OF FILE
+ //        //============================================================+
+	// }
 
 }

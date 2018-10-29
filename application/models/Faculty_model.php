@@ -24,7 +24,8 @@ class Faculty_model extends CI_Model {
             'room'          => $schedule['room_id'],
             'day'           => $schedule['day'],
             'time'          => $schedule['time'],
-            'batch_year'    => $schedule['batch_year_id']
+            'batch_year'    => $schedule['batch_year_id'],
+            'is_active'		=> 'true'
         );
         $students = $this->student_model->getEnrolledStudent($condition,'a');
         return $this->getStudentAttendanceAndRemarks($students,$attendance_date);

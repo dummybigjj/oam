@@ -49,7 +49,7 @@ class Student_model extends CI_Model {
 	/** 
 	 * getEnrolledStudent function.
 	 * 
-	 * @access private
+	 * @access public
 	 * @param mixed $current_batch_year
 	 * @return associative array list of enrolled student on success.
 	 */
