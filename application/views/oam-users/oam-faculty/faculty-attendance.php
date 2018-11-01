@@ -13,6 +13,7 @@
                       <i class="fa fa-info-circle fa-lg"></i>
                       <?php if(!empty($schedules['subject_code'])): ?>
                         <?php echo $schedules['subject_code'].' | '.$schedules['room_name'].' '.$schedules['day'].' '.$this->student_model->transformScheduleRange($schedules['time']); ?>
+                        --- <b>P</b> - Present, <b>A</b> - Absent, <b>L</b> - Late, <b>E</b> - Excuse, <b>V</b> - Vacation
                       <?php endif; ?>
                     </div>
                   </div>
