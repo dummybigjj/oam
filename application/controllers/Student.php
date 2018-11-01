@@ -189,12 +189,14 @@ class Student extends CI_Controller{
      * @access public
      * @return render student registration of subjects and schedule
      */
-    public function register_students(){
+    public function register_students($schedule_id = NULL){
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
         $data['subheader'] = array('title'=>'Register Students','icon'=>'fa fa-user-o');
         // Necessary page data
         // Current Batch Year
         $data['batch_year']  = $this->batch_year_model->getBatchCurrentYear();
+        // Get schedule
+        $data['schedule']    = $this->room_model->getSchedules(array('schedule_id'=>$schedule_id,'`schedule`.`is_active`'=>'true'),'s');
         // Options for "Student" dropdown field
         $data['students']    = $this->student_model->getStudents('a',array('status'=>'1'));
         // Options for "Subject" dropdown field

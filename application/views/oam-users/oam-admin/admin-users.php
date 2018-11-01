@@ -44,6 +44,9 @@
                                   <div class="btn-group">
                                     <button type="button" class="btn btn-primary" onclick="view_user(<?php echo $value['user_id'];?>)"> <i class="fa fa-eye" aria-hidden="true"></i> </button>
                                     <button type="button" class="btn btn-warning" onclick="edit_user(<?php echo $value['user_id'];?>)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button>
+                                    <?php if($value['designation']=='Faculty'): ?>
+                                      <a target="_blank" class="btn btn-danger" href="<?php echo site_url('faculty_assigned_subjects/'.$value['user_id']); ?>"><i class="fa fa-calendar"></i> </a>
+                                    <?php endif; ?>
                                   </div>
                                 </td>
                               </tr>

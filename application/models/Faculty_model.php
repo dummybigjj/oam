@@ -236,4 +236,26 @@ class Faculty_model extends CI_Model {
 		return FALSE;
 	}
 
+	/**
+	 * remove_students_from_enlistment function.
+	 * 
+	 * @access public
+	 * @param array $student_id
+	 * @param associative array $condition
+	 * @return boolean TRUE on success.
+	 */
+	public function remove_students_from_enlistment($student_id = array(),$condition = array())
+	{
+		$con = array(
+			'subject' 		=> $condition['subject_id'],
+			'subject_code'	=> $condition['subject_code'],
+			'batch_year'	=> $condition['batch_year_id']
+		);
+		for ($i=0; $i < count($student_id); $i++) { 
+			$con['student_id'] = $student_id[$i];
+			$this->crud->deleteData($con,'tbl9');	
+		}	
+		return TRUE;
+	}
+
 }

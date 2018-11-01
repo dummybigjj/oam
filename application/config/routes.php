@@ -82,6 +82,7 @@ $route['student_registration']		= 'student/student_registration';
 $route['register_student']			= 'student/student_enrollment_registration';
 $route['register_student/(:num)']	= 'student/student_enrollment_registration/$1';
 $route['register_students']			= 'student/register_students';
+$route['register_students/(:num)']	= 'student/register_students/$1';
 $route['subject_assigning']			= 'subject/subject_assigning';
 $route['attendance_report']			= 'admin/attendance_report';
 $route['student_import_registration']='student/student_import_registration';
@@ -90,6 +91,7 @@ $route['student_import_registration']='student/student_import_registration';
 // Faculty routing rules
 $route['faculty_dashboard'] 		= 'faculty/faculty_dashboard';
 $route['faculty_assigned_subjects']	= 'faculty/faculty_assigned_subjects';
+$route['faculty_assigned_subjects/(:num)']	= 'faculty/faculty_assigned_subjects/$1';
 $route['faculty/faculty_attendance/(:num)'] = 'faculty/faculty_attendance/$1';//change logs 10-1-2018
 $route['faculty_attendance_records']= 'faculty/faculty_attendance_records';
 

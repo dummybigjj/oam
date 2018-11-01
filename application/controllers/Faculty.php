@@ -63,17 +63,18 @@ class Faculty extends CI_Controller{
      * @access public
      * @return render faculty assigned subjects table
      */
-    public function faculty_assigned_subjects(){
-    	$this->crud->credibilityAuth(array('Faculty'));
+    public function faculty_assigned_subjects($faculty_id = NULL){
+    	$this->crud->credibilityAuth(array('Faculty','Administrator'));
         $data['subheader'] = array('title'=>'Assigned Subjects','icon'=>'icon-bill');
         // Necessary page data
         // Current Batch Year
         $data['batch_year'] = $this->batch_year_model->getBatchCurrentYear();
         $condition = array(
             '`schedule`.`batch_year_id`' => $data['batch_year']['batch_year_id'],
-            '`schedule`.`is_active`'     => 'true',
-            '`faculty_assigned`'         => $this->session->userdata('user_id')
+            '`schedule`.`is_active`'     => 'true'
         );
+        $condition['`faculty_assigned`'] = $this->session->userdata('user_id');
+        if(!empty($faculty_id))$condition['`faculty_assigned`'] = $faculty_id;
         $data['schedules']  = $this->room_model->getSchedules($condition,'a');
         // Page headers
         $this->load->view('templates/header');
@@ -351,6 +352,10 @@ class Faculty extends CI_Controller{
                 }else if($this->input->post('vacation')){
                     $attendance['attendance']= 'V';
                     $this->faculty_model->processMassAttendanceAction($student_id,$attendance,$condition);
+                }else if($this->input->post('remove')){
+                    $this->faculty_model->remove_students_from_enlistment($student_id,$condition);
+                    $this->session->set_flashdata('success','Students has been successfully removed from enlistment!.');
+                    redirect('faculty/faculty_attendance/'.$schedule_id);
                 }
                 $this->session->set_flashdata('success','Students Attendance Status has been updated!.');
             }else{
@@ -361,7 +366,6 @@ class Faculty extends CI_Controller{
         }else{
             $this->session->set_flashdata('warning','Error occured! due to invalid "Attendance Date".');
         }
-        
         redirect('faculty/faculty_attendance/'.$schedule_id);
     }
 

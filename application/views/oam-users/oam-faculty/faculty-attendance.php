@@ -1,4 +1,4 @@
-          <section class="tables">   
+          <section class="tables">
             <div class="container-fluid">
               <div class="row">
 
@@ -17,12 +17,9 @@
                     </div>
                   </div>
 
-                  <div class="card">
-
-                    <form action="<?php echo site_url('faculty/faculty_change_student_attendance_status'); ?>" method="post" accept-charset="utf-8">
+                  <!-- <div class="card">
                     <div class="card-close d-flex align-items-center">
                       <div class="dropdown">
-                        
                         <div class="btn-group">
                           <input type="submit" name="present" value="Present" disabled="" class="btn btn-success">
                           <input type="submit" name="absent" value=" Absent " disabled="" class="btn btn-danger">
@@ -30,7 +27,35 @@
                           <input type="submit" name="excuse" value="Excuse" disabled="" class="btn btn-primary">
                         </div>&nbsp
                         <input type="submit" name="vacation" value="Vacation" disabled="" class="btn btn-success" />
-                            
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <?php if($this->session->userdata('designation')=='Administrator' || $this->session->userdata('designation')=='Registrar'): ?>
+                    <div class="d-flex p-2">
+                      <div class="d-flex align-items-right">
+                        <div class="btn-group">
+                          <a target="_blank" href="<?php echo site_url('register_students/'.$schedule_id); ?>" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Add Students</a>
+                        </div>
+                      </div>
+                    </div>
+                  <?php endif; ?>
+                  <div class="card">
+
+                    <form action="<?php echo site_url('faculty/faculty_change_student_attendance_status'); ?>" method="post" accept-charset="utf-8">
+                    <div class="card-close d-flex align-items-center">
+                      <div class="dropdown">
+                        
+                        <div class="btn-group">
+                          <input type="submit" name="present" value="P" disabled="" class="btn btn-success">
+                          <input type="submit" name="absent" value="A" disabled="" class="btn btn-danger">
+                          <input type="submit" name="late" value="L" disabled="" class="btn btn-warning">
+                          <input type="submit" name="excuse" value="E" disabled="" class="btn btn-primary">
+                        </div>&nbsp
+                        <input type="submit" name="vacation" value="V" disabled="" class="btn btn-success" />
+                        <?php if($this->session->userdata('designation')=='Administrator' || $this->session->userdata('designation')=='Registrar'): ?>
+                          <input type="submit" name="remove" value="Remove" disabled="" class="btn btn-danger">
+                        <?php endif; ?>
                       </div>
                     </div>
 

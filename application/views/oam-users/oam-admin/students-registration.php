@@ -76,11 +76,11 @@
 
                         <div class="form-group col-md-12">
                           <label class="form-control-label"><font style="color: red">*</font> Subject</label>
-                          <select name="subject[]" required="" class="form-control">
+                          <select name="subject[]" required="" class="form-control" <?php echo (!empty($schedule))?'readonly=""':''; ?>>
                             <option> </option>
                             <?php if(!empty($subjects)): ?>
                               <?php foreach ($subjects as  $value): ?>
-                              <option value="<?php echo $value['subject_id'] ?>"><?php echo $value['subject_title']; ?></option>
+                              <option value="<?php echo $value['subject_id'] ?>" <?php echo (!empty($schedule)&&$schedule['subject_id']==$value['subject_id'])?'selected':''; ?> ><?php echo $value['subject_title']; ?></option>
                               <?php endforeach; ?>
                             <?php endif; ?>
                           </select>
@@ -88,29 +88,29 @@
 
                         <div class="form-group col-md-12">       
                           <label class="form-control-label"><font style="color: red">*</font> Subject Code</label>
-                          <input type="text" name="subject_code[]"  oninput="handleInput(event)" maxlength="60" required="" class="form-control">
+                          <input type="text" name="subject_code[]" value="<?php echo (!empty($schedule))?$schedule['subject_code']:''; ?>"  oninput="handleInput(event)" maxlength="60" required="" class="form-control" <?php echo (!empty($schedule))?'readonly=""':''; ?>>
                         </div>
 
                         <div class="form-group col-md-12">
                           <label class="form-control-label"><font style="color: red">*</font> Time</label>
-                          <select name="time[]" required="" class="form-control">
+                          <select name="time[]" required="" class="form-control" <?php echo (!empty($schedule))?'readonly=""':''; ?>>
                             <option> </option>
-                            <option value="08:00:00"> 08:00AM - 09:30AM </option>
-                            <option value="10:00:00"> 10:00AM - 11:30AM </option>
-                            <option value="12:30:00"> 12:30PM - 02:00PM </option>
-                            <option value="14:30:00"> 02:30PM - 04:00PM </option>
-                            <option value="16:30:00"> 04:30PM - 06:00PM </option>
-                            <option value="18:30:00"> 06:30PM - 08:00PM </option>
+                            <option value="08:00:00" <?php echo (!empty($schedule)&&$schedule['time']=='08:00:00')?'selected':''; ?> > 08:00AM - 09:30AM </option>
+                            <option value="10:00:00" <?php echo (!empty($schedule)&&$schedule['time']=='10:00:00')?'selected':''; ?> > 10:00AM - 11:30AM </option>
+                            <option value="12:30:00" <?php echo (!empty($schedule)&&$schedule['time']=='12:30:00')?'selected':''; ?> > 12:30PM - 02:00PM </option>
+                            <option value="14:30:00" <?php echo (!empty($schedule)&&$schedule['time']=='14:30:00')?'selected':''; ?> > 02:30PM - 04:00PM </option>
+                            <option value="16:30:00" <?php echo (!empty($schedule)&&$schedule['time']=='16:30:00')?'selected':''; ?> > 04:30PM - 06:00PM </option>
+                            <option value="18:30:00" <?php echo (!empty($schedule)&&$schedule['time']=='18:30:00')?'selected':''; ?> > 06:30PM - 08:00PM </option>
                           </select>
                         </div>
 
                         <div class="form-group col-md-12">
                           <label class="form-control-label"><font style="color: red">*</font> Hall</label>
-                          <select name="room[]" required="" class="form-control">
+                          <select name="room[]" required="" class="form-control" <?php echo (!empty($schedule))?'readonly=""':''; ?>>
                             <option> </option>
                             <?php if(!empty($rooms)): ?>
                               <?php foreach ($rooms as  $value): ?>
-                              <option value="<?php echo $value['room_id'] ?>"><?php echo $value['room_name']; ?></option>
+                              <option value="<?php echo $value['room_id'] ?>" <?php echo (!empty($schedule)&&$schedule['room_id']==$value['room_id'])?'selected':''; ?> ><?php echo $value['room_name']; ?></option>
                               <?php endforeach; ?>
                             <?php endif; ?>
                           </select>
@@ -118,15 +118,15 @@
 
                         <div class="form-group col-md-12">
                           <label class="form-control-label"><font style="color: red">*</font> Day</label>
-                          <select name="day[]" required="" class="form-control">
+                          <select name="day[]" required="" class="form-control" <?php echo (!empty($schedule))?'readonly=""':''; ?>>
                             <option> </option>
-                            <option value="MONDAY"> MONDAY </option>
-                            <option value="TUESDAY"> TUESDAY </option>
-                            <option value="WEDNESDAY"> WEDNESDAY </option>
-                            <option value="THURSDAY"> THURSDAY </option>
-                            <option value="FRIDAY"> FRIDAY </option>
-                            <option value="SATURDAY"> SATURDAY </option>
-                            <option value="SUNDAY"> SUNDAY </option>
+                            <option value="MONDAY" <?php echo (!empty($schedule)&&$schedule['day']=='MONDAY')?'selected':''; ?> > MONDAY </option>
+                            <option value="TUESDAY" <?php echo (!empty($schedule)&&$schedule['day']=='TUESDAY')?'selected':''; ?> > TUESDAY </option>
+                            <option value="WEDNESDAY" <?php echo (!empty($schedule)&&$schedule['day']=='WEDNESDAY')?'selected':''; ?> > WEDNESDAY </option>
+                            <option value="THURSDAY" <?php echo (!empty($schedule)&&$schedule['day']=='THURSDAY')?'selected':''; ?> > THURSDAY </option>
+                            <option value="FRIDAY" <?php echo (!empty($schedule)&&$schedule['day']=='FRIDAY')?'selected':''; ?> > FRIDAY </option>
+                            <option value="SATURDAY" <?php echo (!empty($schedule)&&$schedule['day']=='SATURDAY')?'selected':''; ?> > SATURDAY </option>
+                            <option value="SUNDAY" <?php echo (!empty($schedule)&&$schedule['day']=='SUNDAY')?'selected':''; ?> > SUNDAY </option>
                           </select>
                         </div>
                         
