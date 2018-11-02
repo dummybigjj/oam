@@ -67,7 +67,7 @@ class Room extends CI_Controller{
     public function room_schedule($room_id = NULL)
     {
         $this->crud->credibilityAuth(array('Administrator'));
-        $condition    = array('`schedule`.`room_id`'=>$room_id,'is_active'=>'true');
+        $condition    = array('`schedule`.`room_id`'=>$room_id,'`schedule`.`is_active`'=>'true');
         $data['room'] = $this->room_model->getSchedules($condition,'a');
         // Page headers
         $this->load->view('templates/header-scheduling');
