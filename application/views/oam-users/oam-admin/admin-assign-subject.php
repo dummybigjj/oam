@@ -3,14 +3,22 @@
               <div class="row">
 
                 <div class="col-lg-12" style="margin: 0 auto">
+
+                  <div class="alert alert-primary" role="alert">
+                    <div class="statistic d-flex align-items-center no-padding-top no-padding-bottom">
+                      <div class="icon bg-blue"><i class="icon-bill" aria-hidden="true"></i></div>
+                      <div class="text"><small class="h5" style="color: #111">Opened Schedule For <?php echo $batch_year['batch_name']; ?></small></div>
+                    </div>
+                  </div>
+
                   <div class="card">
 
                     <form action="<?php echo site_url('subject/update_multiple_schedule'); ?>" method="post" accept-charset="utf-8">
                       <div class="card-close d-flex align-items-center">
                         <!-- <input type="submit" name="delete" value="&nbsp Delete &nbsp" disabled="" class="btn btn-danger"> -->
                         <div class="btn-group">
-                          <input type="submit" name="assign" class="btn btn-warning" disabled="" value="Assign Faculty"/>
-                          <input type="submit" name="delete" class="btn btn-danger" disabled="" value="Delete Subject"/>
+                          <input type="submit" name="assign" class="btn btn-warning" disabled="" value="Assign"/>
+                          <input type="submit" name="delete" class="btn btn-danger" disabled="" value="Delete"/>
                         </div>&nbsp
                         <div class="btn-group">
                           <!-- <input type="submit" name="activate" class="btn btn-success" disabled="" value="Activate"/> -->
@@ -20,10 +28,7 @@
 
                       <div class="card-header d-flex align-items-center">
                         <div class="dropdown">
-                          <div class="statistic d-flex align-items-center no-padding-top no-padding-bottom">
-                            <div class="icon bg-green"><i class="fa fa-table" aria-hidden="true"></i></div>
-                            <div class="text"><small class="h5">Opened Schedule For <?php echo $batch_year['batch_name']; ?></small></div>
-                          </div>
+                          <i class="fa fa-table fa-2x" aria-hidden="true"></i>
                         </div>
                       </div>
 

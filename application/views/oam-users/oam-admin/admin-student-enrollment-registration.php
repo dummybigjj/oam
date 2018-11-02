@@ -3,13 +3,21 @@
               <div class="row">
 
                 <div class="col-lg-12" style="margin: 0 auto">
+
+                  <div class="alert alert-primary" role="alert">
+                    <div class="statistic d-flex align-items-center no-padding-top no-padding-bottom">
+                      <div class="icon bg-blue"><i class="icon-bill" aria-hidden="true"></i></div>
+                      <div class="text"><small class="h5" style="color: #111">Registered Students for <?php echo $batch_year['batch_name']; ?></small></div>
+                    </div>
+                  </div>
+
                   <div class="card">
 
                     <form action="<?php echo site_url('student/student_remove_enrollment_registration'); ?>" method="post" accept-charset="utf-8">
                       <div class="card-close d-flex align-items-center">
                         <?php if($this->session->userdata('designation')!='Program Head'): ?>
                         <div class="dropdown">
-                          <a href="<?php echo site_url('register_students'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> Register Students </a>&nbsp
+                          <a href="<?php echo site_url('register_students'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> Register </a>&nbsp
                           <button type="submit" class="btn btn-danger" disabled="" ><i class="icon-close" aria-hidden="true"></i> Delete </button>
                         </div>
                         <?php endif; ?>
@@ -17,10 +25,7 @@
 
                       <div class="card-header d-flex align-items-center">
                         <div class="dropdown">
-                          <div class="statistic d-flex align-items-center no-padding-top no-padding-bottom">
-                            <div class="icon bg-green"><i class="fa fa-table" aria-hidden="true"></i></div>
-                            <div class="text"><small class="h5">Registered Students for <?php echo $batch_year['batch_name']; ?></small></div>
-                          </div>
+                          <i class="fa fa-table fa-2x" aria-hidden="true"></i>
                         </div>
                       </div>
 
@@ -95,18 +100,20 @@
                     </form>
 
                   </div>
-                  <small id="example_paginate" class="form-text text-muted d-flex justify-content-center h6">Use Pagination links below to Navigate Query Results.</small>
-                  <div class="dataTables_paginate paging_simple_numbers d-flex justify-content-center" id="example_paginate">
-                    <?php echo $links; ?>
-                  </div>
-                  <?php if(!empty($this->uri->segment(2))): ?>
-                    <small id="example_paginate" class="form-text text-muted d-flex justify-content-center">
-                      Showing <?php echo $this->uri->segment(2).' to '.($this->uri->segment(2) + 500).' of '.$this->student_model->countTableRows('student_subject').' query results.'; ?>
-                    </small>
-                  <?php else: ?>
-                    <small id="example_paginate" class="form-text text-muted d-flex justify-content-center">
-                      Showing <?php echo '1'.' to '.'500'.' of '.$this->student_model->countTableRows('student_subject').' query results.'; ?>
-                    </small>
+                  <?php if($count>500): ?>
+                    <small id="example_paginate" class="form-text text-muted d-flex justify-content-center h6">Use Pagination links below to Navigate Query Results.</small>
+                    <div class="dataTables_paginate paging_simple_numbers d-flex justify-content-center" id="example_paginate">
+                      <?php echo $links; ?>
+                    </div>
+                    <?php if(!empty($this->uri->segment(2))): ?>
+                      <small id="example_paginate" class="form-text text-muted d-flex justify-content-center">
+                        Showing <?php echo $this->uri->segment(2).' to '.($this->uri->segment(2) + 500).' of '.$count.' query results.'; ?>
+                      </small>
+                    <?php else: ?>
+                      <small id="example_paginate" class="form-text text-muted d-flex justify-content-center">
+                        Showing <?php echo '1'.' to '.'500'.' of '.$count.' query results.'; ?>
+                      </small>
+                    <?php endif; ?>
                   <?php endif; ?>
                 </div>
 

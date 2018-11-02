@@ -6,6 +6,8 @@ class Admin extends CI_Controller{
 
     function __construct(){
         parent::__construct();
+        $this->load->helper("url");
+        $this->load->library("pagination");
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('crud');
@@ -72,8 +74,20 @@ class Admin extends CI_Controller{
         $this->crud->credibilityAuth(array('Administrator'));
         // Subheader bar title and icon
         $data['subheader'] = array('title'=>'History Logs','icon'=>'fa fa-history');
+        // History table count
+        $data['count'] = $this->crud->count_table_rows('','tbl4');
+        // Set pagination config
+        $config = $this->crud->pagination_config(500,$data['count'],'history',2);
+        // initialize pagination
+        $this->pagination->initialize($config);
+        // set start query page
+        $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+
         // Necessary page data
-        $data['history']   = $this->admin_model->getHistoryLogs('');
+        $data['history'] = $this->admin_model->get_history_logs('',$config["per_page"],$page);
+
+        // paginiation links
+        $data["links"] = $this->pagination->create_links();
         // Page headers
         $this->load->view('templates/header');
         $this->load->view('templates/header-bar');
@@ -182,7 +196,7 @@ class Admin extends CI_Controller{
      */
     public function get_history($id = NULL){
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
-        $data = $this->admin_model->getHistoryLogs(array('tbl_id'=>$id));
+        $data = $this->admin_model->get_history_logs(array('tbl_id'=>$id),'','');
         echo json_encode($data);
     }
 

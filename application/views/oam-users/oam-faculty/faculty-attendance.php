@@ -65,12 +65,12 @@
                         <div class="form-inline">
                           <div class="form-group mb-2 mt-2">
                             <?php if($this->session->userdata('designation')=='Administrator' || $this->session->userdata('designation')=='Registrar'): ?>
-                              <label class="form-control-label" for="attendance_date">ATTENDANCE &nbsp <i class="fa fa-calendar fa-lg"></i></label>
+                              <label class="form-control-label" for="attendance_date"> &nbsp </label>
                             <?php else: ?>
-                              <label class="form-control-label h5" for="attendance_date"> <i class="fa fa-calendar fa-lg"></i> &nbsp <?php echo date('F d, Y - l',strtotime($attend_date)); ?> </label>
+                              <label class="form-control-label h5" for="attendance_date"> <i class="fa fa-calendar fa-lg"></i> &nbsp<?php echo date('M d - D',strtotime($attend_date)); ?> </label>
                             <?php endif; ?>
                           </div>
-                          <div class="form-group mx-sm-3 mb-2">
+                          <div class="form-group mx-sm-0 mb-1" style="outline: ;">
                             <?php if($this->session->userdata('designation')=='Administrator'|| $this->session->userdata('designation')=='Registrar'): ?>
                               <input type="text" name="attendance_date" id="attendance_date" class="form-control <?php echo ($this->session->userdata('designation')=='Registrar' || $this->session->userdata('designation')=='Administrator')?'datetimepicker2':''; ?>" value="<?php echo $attend_date; ?>" />
                             <?php else: ?>

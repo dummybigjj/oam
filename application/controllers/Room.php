@@ -64,6 +64,19 @@ class Room extends CI_Controller{
         $this->load->view('templates/footer');
     }
 
+    public function room_schedule($room_id = NULL)
+    {
+        $this->crud->credibilityAuth(array('Administrator'));
+        $data['room'] = $this->room_model->getSchedules(array('`schedule`.`room_id`'=>$room_id),'a');
+        // Page headers
+        $this->load->view('templates/header-scheduling');
+        // Flash data messages
+        // Page contents
+        $this->load->view('oam-users/oam-admin/admin-room-schedule',$data);
+        // Page modals
+        // Page footer
+    }
+
     /**
      * room_create function.
      * 

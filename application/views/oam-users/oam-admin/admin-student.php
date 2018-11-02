@@ -9,8 +9,8 @@
                     <div class="card-close d-flex align-items-center">
                       <?php if($this->session->userdata('designation')!='Program Head'): ?>
                       <div class="btn-group">
-                        <input type="submit" name="activate" value="&nbsp Activate &nbsp" disabled="" class="btn btn-success">
-                        <input type="submit" name="deactivate" value=" Deactivate " disabled="" class="btn btn-danger">
+                        <input type="submit" name="activate" value="Activate" disabled="" class="btn btn-success">
+                        <input type="submit" name="deactivate" value="Deactivate" disabled="" class="btn btn-danger">
                       </div>
                       <?php endif; ?>
                     </div>
@@ -18,8 +18,8 @@
                     <div class="card-header d-flex align-items-center">
                       <?php if($this->session->userdata('designation')!='Program Head'): ?>
                       <div class="dropdown">
-                        <a href="<?php echo site_url('student_registration'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> New Students </a>
-                        <button type="button" class="btn btn-warning" onclick="import_student()"> <i class="fa fa-upload" aria-hidden="true"></i> Import Students </button>
+                        <a href="<?php echo site_url('student_registration'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> Add </a>
+                        <button type="button" class="btn btn-warning" onclick="import_student()"> <i class="fa fa-upload" aria-hidden="true"></i> Import </button>
                       </div>
                       <?php else: ?>
                         <div class="dropdown">

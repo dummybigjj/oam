@@ -11,15 +11,19 @@ class Admin_model extends CI_Model {
 	 * 
 	 * @access public
 	 * @param associative array $condition
+	 * @param int $limit
+	 * @param int $start
 	 * @return associative array on success.
 	 */
-	public function getHistoryLogs($condition = array()){
+	public function get_history_logs($condition = array(),$limit,$start)
+	{
 		$select = '`tbl_id`, `activity`, `user_credential`.`u_full_name`, `user_credential`.`u_email_address`, `user_credential`.`designation`, `device_use`, `history_logs`.`device_name`, `history_logs`.`device_ip_address`, `history_logs`.`created`';
-		$join   = array('`user_credential`'=>'`history_logs`.`created_by` = `user_credential`.`user_id`');
+		$join = array('`user_credential`'=>'`history_logs`.`created_by` = `user_credential`.`user_id`');
+		$order= '`history_logs`.`created` DESC';
 		if(!empty($condition)){
-			return $this->crud->getJoinDataWithSort($select,'s',$condition,$join,'`history_logs`.`created` ASC','tbl4');
+			return $this->crud->getJoinDataWithSort($select,'s',$condition,$join,$order,'tbl4');
 		}
-		return $this->crud->getJoinDataWithSort($select,'a',$condition,$join,'`history_logs`.`created','tbl4');
+		return $this->crud->get_paginated_data($select,$condition,$join,$order,array($limit,$start),'tbl4');
 	}
 
 	/**

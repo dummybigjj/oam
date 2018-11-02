@@ -15,7 +15,7 @@
 
                     <div class="card-header d-flex align-items-center">
                       <div class="dropdown">
-                        <a href="<?php echo site_url('vocational_program_create'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> New Vocational Program </a>
+                        <a href="<?php echo site_url('vocational_program_create'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> Add </a>
                       </div>
                     </div>
 

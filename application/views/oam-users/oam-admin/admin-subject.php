@@ -15,7 +15,7 @@
 
                     <div class="card-header d-flex align-items-center">
                       <div class="dropdown">
-                        <a href="<?php echo site_url('subject_create'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> New Subjects </a>
+                        <a href="<?php echo site_url('subject_create'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> Add </a>
                       </div>
                     </div>
 

@@ -26,7 +26,7 @@
                     <div class="item d-flex align-items-center">
                       <i class="fa fa-cogs fa-5x" style="color: #42a5f5"></i>
                       <div class="title">
-                        <a href="<?php echo site_url('admin_users'); ?>"><span>Users<br>and Config</span></a>
+                        <a href="<?php echo site_url('admin_users'); ?>"><span>Admin<br>Config</span></a>
                       </div>
                     </div>
                   </div>                

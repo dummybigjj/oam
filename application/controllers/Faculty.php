@@ -73,8 +73,11 @@ class Faculty extends CI_Controller{
             '`schedule`.`batch_year_id`' => $data['batch_year']['batch_year_id'],
             '`schedule`.`is_active`'     => 'true'
         );
-        $condition['`faculty_assigned`'] = $this->session->userdata('user_id');
-        if(!empty($faculty_id))$condition['`faculty_assigned`'] = $faculty_id;
+        if(!empty($faculty_id)){
+            $condition['`faculty_assigned`'] = $faculty_id;
+        }else{
+            $condition['`faculty_assigned`'] = $this->session->userdata('user_id');
+        }
         $data['schedules']  = $this->room_model->getSchedules($condition,'a');
         // Page headers
         $this->load->view('templates/header');
@@ -91,6 +94,41 @@ class Faculty extends CI_Controller{
         // Page modals
         // Page footer
         $this->load->view('templates/footer');
+    }
+
+    /**
+     * faculty_schedule_outline function.
+     * 
+     * @access public
+     * @param int $faculty_id
+     * @return render faculty schedule outline
+     */
+    public function faculty_schedule_outline($faculty_id = NULL)
+    {
+        $this->crud->credibilityAuth(array('Faculty','Administrator'));
+        $data['batch_year'] = $this->batch_year_model->getBatchCurrentYear();
+        $condition = array('`schedule`.`batch_year_id`'=>$data['batch_year']['batch_year_id'],'`schedule`.`is_active`'=>'true');
+
+        if(!empty($faculty_id)){
+            $condition['`faculty_assigned`'] = $faculty_id;
+        }else{
+            $condition['`faculty_assigned`'] = $this->session->userdata('user_id');
+        }
+        $data['schedules'] = $this->room_model->getSchedules($condition,'a');
+
+        if(!empty($faculty_id)){
+            $con_user['user_id'] = $faculty_id;
+        }else{
+            $con_user = array('user_id'=>$this->session->userdata('user_id'));
+        }
+        $data['user_info'] = $this->crud->getData('','s',$con_user,'tbl1');
+        // Page headers
+        $this->load->view('templates/header-scheduling');
+        // Flash data messages
+        // Page contents
+        $this->load->view('oam-users/oam-faculty/faculty-schedule-outline',$data);
+        // Page modals
+        // Page footer
     }
 
     /**

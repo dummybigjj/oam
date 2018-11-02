@@ -6,9 +6,9 @@ class Student extends CI_Controller{
 
     function __construct(){
         parent::__construct();
-        $this->load->helper('form');
         $this->load->helper("url");
         $this->load->library("pagination");
+        $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->library('excel');
         $this->load->model('crud');
@@ -142,7 +142,10 @@ class Student extends CI_Controller{
         $this->crud->credibilityAuth(array('Administrator','Registrar','Program Head'));
         // Subheader bar title and icon
         $data['subheader'] = array('title'=>'Register Student','icon'=>'fa fa-user-o');
-        $config = $this->student_model->paginationConfig(500);
+        // Active student subject table count
+        $data['count']  = $this->crud->count_table_rows(array('is_active'=>'true'),'tbl9');
+        // Pagination config
+        $config = $this->crud->pagination_config(500,$data['count'],'register_student',2);
         // initialize pagination
         $this->pagination->initialize($config);
         // set start query page

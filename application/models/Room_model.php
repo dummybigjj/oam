@@ -53,8 +53,13 @@ class Room_model extends CI_Model {
 	 * @return associative array list of schedules on success.
 	 */
 	public function getSchedules($condition,$return_type){
-		$select = '`schedule_id`, `subject`.`subject_id`, `subject`.`subject_title`, `subject_code`, `time`, `schedule`.`room_id`, `room`.`room_name`, `day`, `schedule`.`batch_year_id`, `batch_year`.`batch_name`, `schedule`.`created`, `faculty_assigned`, `schedule`.`is_active`';
-		$join = array('`subject`'=>'`schedule`.`subject_id` = `subject`.`subject_id`','`room`'=>'`schedule`.`room_id` = `room`.`room_id`','`batch_year`'=>'`schedule`.`batch_year_id` = `batch_year`.`batch_year_id`');
+		$select = '`schedule_id`, `subject`.`subject_id`, `subject`.`subject_title`, `subject_code`, `time`, `schedule`.`room_id`, `room`.`room_name`, `day`, `schedule`.`batch_year_id`, `batch_year`.`batch_name`, `schedule`.`created`, `faculty_assigned`, `user_credential`.`u_full_name`, `schedule`.`is_active`';
+		$join = array(
+			'`subject`'		=>'`schedule`.`subject_id` = `subject`.`subject_id`',
+			'`room`'		=>'`schedule`.`room_id` = `room`.`room_id`',
+			'`batch_year`'	=>'`schedule`.`batch_year_id` = `batch_year`.`batch_year_id`',
+			'`user_credential`'=>'`schedule`.`faculty_assigned` = `user_credential`.`user_id`'
+		);
 		return $this->crud->getJoinData($select,$return_type,$condition,$join,'tbl10');
 	}
 

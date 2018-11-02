@@ -13,15 +13,15 @@
                     <form action="<?php echo site_url('room/room_activate_deactivate'); ?>" method="post" accept-charset="utf-8">
                     <div class="card-close d-flex align-items-center">
                       <div class="btn-group">
-                        <input type="submit" name="activate" value="&nbsp Activate &nbsp" disabled="" class="btn btn-success">
-                        <input type="submit" name="deactivate" value=" Deactivate " disabled="" class="btn btn-danger">
+                        <input type="submit" name="activate" value=" Activate " disabled="" class="btn btn-success">
+                        <input type="submit" name="deactivate" value="Deactivate" disabled="" class="btn btn-danger">
                       </div>&nbsp
-                      <input type="submit" name="delete" value="&nbsp Delete &nbsp" disabled="" class="btn btn-danger">
+                      <input type="submit" name="delete" value="Delete" disabled="" class="btn btn-danger">
                     </div>
 
                     <div class="card-header d-flex align-items-center">
                       <div class="dropdown">
-                        <a href="<?php echo site_url('room_create'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> New Room </a>
+                        <a href="<?php echo site_url('room_create'); ?>" class="btn btn-primary"><i class="fa fa-plus-square-o"></i> Add </a>
                       </div>
                     </div>
 
@@ -52,6 +52,7 @@
                                 <td><?php echo $value['modified']; ?></td>
                                 <td>
                                   <button type="button" class="btn btn-warning" onclick="edit_room(<?php echo $value['room_id'];?>)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button>
+                                  <a target="_blank" href="<?php echo site_url('room_schedule/'.$value['room_id']); ?>" class="btn btn-danger"><i class="fa fa-calendar"></i></a>
                                 </td>
                               </tr>
                             <?php endforeach; ?>

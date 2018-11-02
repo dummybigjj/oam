@@ -67,7 +67,8 @@ $route['user_profile'] = 'user/user_profile';
 // Admin routing rules
 $route['admin_dashboard'] 	 		= 'admin/admin_dashboard';
 $route['admin_users'] 	  	 		= 'user/users';
-$route['admin_history']	  	 		= 'admin/admin_history';
+$route['history']	  	 			= 'admin/admin_history';
+$route['history/(:num)']	  	 	= 'admin/admin_history/$1';
 $route['admin_security']  	 		= 'admin/admin_security';
 $route['user_registration']	 		= 'user/user_register';
 $route['rooms']				 		= 'room/rooms';
@@ -86,6 +87,7 @@ $route['register_students/(:num)']	= 'student/register_students/$1';
 $route['subject_assigning']			= 'subject/subject_assigning';
 $route['attendance_report']			= 'admin/attendance_report';
 $route['student_import_registration']='student/student_import_registration';
+$route['room_schedule/(:num)']		= 'room/room_schedule/$1';
 
 
 // Faculty routing rules
@@ -94,6 +96,8 @@ $route['faculty_assigned_subjects']	= 'faculty/faculty_assigned_subjects';
 $route['faculty_assigned_subjects/(:num)']	= 'faculty/faculty_assigned_subjects/$1';
 $route['faculty/faculty_attendance/(:num)'] = 'faculty/faculty_attendance/$1';//change logs 10-1-2018
 $route['faculty_attendance_records']= 'faculty/faculty_attendance_records';
+$route['faculty_schedule_outline']	= 'faculty/faculty_schedule_outline';
+$route['faculty_schedule_outline/(:num)']	= 'faculty/faculty_schedule_outline/$1';
 
 // Unauthorized Error page
 $route['unauthorized_access']		= 'faculty/unauthorized_access';

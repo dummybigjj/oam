@@ -343,16 +343,16 @@ class Student_model extends CI_Model {
 		return FALSE;
 	}
 
-	/**
-	 * countTableRows function.
-	 * 
-	 * @access public
-	 * @return int count of table rows on success.
-	 */
-	public function countTableRows(){
-		return $this->crud->getData('','c',array('is_active'=>'true'),'tbl9');
-		// return $this->db->count_all($table_name);
-	}
+	// /**
+	//  * countTableRows function.
+	//  * 
+	//  * @access public
+	//  * @return int count of table rows on success.
+	//  */
+	// public function countTableRows(){
+	// 	return $this->crud->getData('','c',array('is_active'=>'true'),'tbl9');
+	// 	// return $this->db->count_all($table_name);
+	// }
 
 	/**
 	 * getPaginationEnrolledStudents function.
@@ -373,59 +373,59 @@ class Student_model extends CI_Model {
 			'`batch_year`' 			=> '`student_subject`.`batch_year` = `batch_year`.`batch_year_id`'
 		);
 		$order = '`student`.`arabic_name` ASC ,`subject`.`subject_title` ASC';
-		$this->db->select($select);
-		$this->db->from('student_subject');
-		// join table
-		foreach ($join as $key => $value) {
-			$this->db->join($key,$value);
-		}
-		// where condition
-		foreach ($condition as $key => $value) {
-			$this->db->where($key,$value);
-		}
-		$this->db->order_by($order);
-		$this->db->limit($limit,$start);
-		$query = $this->db->get();
-		return $query->result_array();
+		return $this->crud->get_paginated_data($select,$condition,$join,$order,array($limit,$start),'tbl9');
+		// $this->db->select($select);
+		// $this->db->from('student_subject');
+		// // join table
+		// foreach ($join as $key => $value) {
+		// 	$this->db->join($key,$value);
+		// }
+		// // where condition
+		// foreach ($condition as $key => $value) {
+		// 	$this->db->where($key,$value);
+		// }
+		// $this->db->order_by($order);
+		// $this->db->limit($limit,$start);
+		// $query = $this->db->get();
+		// return $query->result_array();
 	}
 
-	/**
-	 * paginationConfig function.
-	 * 
-	 * @access public
-	 * @param int $per_page
-	 * @return pagination config on success.
-	 */
-	public function paginationConfig($per_page){
-		// pagination config
-        $config = array();
-        $config["base_url"] = base_url() . "register_student";
-        $config["total_rows"] = $this->countTableRows();
-        $config["per_page"] = $per_page;
-        $config["uri_segment"] = 2;
+	// /**
+	//  * paginationConfig function.
+	//  * 
+	//  * @access public
+	//  * @param int $per_page
+	//  * @return pagination config on success.
+	//  */
+	// public function paginationConfig($per_page,$total_rows){
+	// 	// pagination config
+ //        $config = array();
+ //        $config["base_url"] = base_url() . "register_student";
+ //        $config["total_rows"] = $total_rows;
+ //        $config["per_page"] = $per_page;
+ //        $config["uri_segment"] = 2;
 
-        //config for bootstrap pagination class integration
-        $config['full_tag_open'] = '<ul class="pagination">';
-        $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = false;
-        $config['last_link'] = false;
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="paginate_button page-item previous page-link" id="example_previous">';
-        $config['prev_tag_close'] = '</li>';
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li class="paginate_button page-item next page-link" id="example_next">';
-        $config['next_tag_close'] = '</li>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0" class="page-link">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
-        $config['num_tag_close'] = '</li>';
-
-        return $config;
-	}
+ //        //config for bootstrap pagination class integration
+ //        $config['full_tag_open'] = '<ul class="pagination">';
+ //        $config['full_tag_close'] = '</ul>';
+ //        $config['first_link'] = false;
+ //        $config['last_link'] = false;
+ //        $config['first_tag_open'] = '<li>';
+ //        $config['first_tag_close'] = '</li>';
+ //        $config['prev_link'] = '&laquo';
+ //        $config['prev_tag_open'] = '<li class="paginate_button page-item previous page-link" id="example_previous">';
+ //        $config['prev_tag_close'] = '</li>';
+ //        $config['next_link'] = '&raquo';
+ //        $config['next_tag_open'] = '<li class="paginate_button page-item next page-link" id="example_next">';
+ //        $config['next_tag_close'] = '</li>';
+ //        $config['last_tag_open'] = '<li>';
+ //        $config['last_tag_close'] = '</li>';
+ //        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0" class="page-link">';
+ //        $config['cur_tag_close'] = '</a></li>';
+ //        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+ //        $config['num_tag_close'] = '</li>';
+ //        return $config;
+	// }
 
 	/**
 	 * getStudentId function.
