@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/admin-premium/1-4-4/css/style.sea.premium.css" id="theme-stylesheet">
 <!-- CHANGES 8-26-2018 -->
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('application/assets/css/custom.css'); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('application/assets/css/customs.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('application/assets/jquery/jquery.datetimepicker.css'); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('application/assets/select2/css/select2-bootstrap4.min.css'); ?>">
 <!-- <link rel="stylesheet" type="text/css" href="<?php //echo base_url('application/assets/select2/css/select2-bootstrap4.css'); ?>"> -->

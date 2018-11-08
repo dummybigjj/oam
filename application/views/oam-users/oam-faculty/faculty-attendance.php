@@ -95,6 +95,7 @@
                         </thead>
                         <tbody>
                         <?php if(!empty($students)): ?>
+                          <?php $p=0;$a=0;$l=0;$e=0;$v=0; ?>
                           <?php foreach($students as $value): ?>
                               <tr>
                                 <td>
@@ -110,14 +111,19 @@
                                 <td><?php echo $value['arabic_name']; ?></td>
                                 <th>
                                   <?php if($value['attendance']=='P'): ?>
+                                    <?php $p++; ?>
                                     <font style="color: green">Present</font>
                                   <?php elseif($value['attendance']=='A'): ?>
+                                    <?php $a++; ?>
                                     <font style="color: red">Absent</font>
                                   <?php elseif($value['attendance']=='L'): ?>
+                                    <?php $l++; ?>
                                     <font style="color: yellow">Late</font>
                                   <?php elseif($value['attendance']=='E'): ?>
+                                    <?php $e++; ?>
                                     <font style="color: blue">Excuse</font>
                                   <?php elseif($value['attendance']=='V'): ?>
+                                    <?php $v++; ?>
                                     <font style="color: blue">Vacation</font>
                                   <?php endif; ?>
                                 </th>
@@ -149,6 +155,9 @@
                             <th>Status</th>
                             <th>Remarks</th>
                             <th>Action</th>
+                          </tr>
+                          <tr>
+                            <th colspan="6">Total Presents: <?php echo $p; ?> --- Total Absents: <?php echo $a; ?> --- Total Lates: <?php echo $l; ?> --- Total Excuses: <?php echo $e; ?> --- Total Vacation: <?php echo $v; ?></th>
                           </tr>
                         </tfoot>
                       </table>

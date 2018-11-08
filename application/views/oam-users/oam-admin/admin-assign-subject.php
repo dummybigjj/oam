@@ -42,6 +42,7 @@
                               <th>Room</th>
                               <th>Day</th>
                               <th>Time</th>
+                              <th>Faculty</th>
                               <?php if($this->session->userdata('designation')!='Program Head'): ?>
                               <th style="width: 10%">Attendance</th>
                               <th style="width: 18%">Action</th>
@@ -58,6 +59,7 @@
                                   <td><?php echo $value['room_name']; ?></td>
                                   <td><?php echo $value['day']; ?></td>
                                   <td><?php echo $this->student_model->transformScheduleRange($value['time']); ?></td>
+                                  <td><?php echo $value['u_full_name']; ?></td>
                                   <?php if($this->session->userdata('designation')!='Program Head'): ?>
                                   <td>
                                     <a target="_blank" href="<?php echo site_url('faculty/faculty_attendance/'.$value['schedule_id']); ?>" class="btn btn-warning">&nbsp<i class="fa fa-calendar" aria-hidden="true"></i> Attendance &nbsp</a>
@@ -81,6 +83,7 @@
                               <th>Room</th>
                               <th>Day</th>
                               <th>Time</th>
+                              <th>Faculty</th>
                               <?php if($this->session->userdata('designation')!='Program Head'): ?>
                               <th style="width: 10%">Attendance</th>
                               <th>Action</th>

@@ -294,7 +294,7 @@ class Cruds extends CI_Model {
 		$this->db->from($this->init_tbl[$tbl]);
 		if(array_key_exists("tbl_join", $params)){
 			foreach ($params["tbl_join"] as $key => $value) {
-				$this->db->join($key,$value);
+				$this->db->join($key,$value,'left');
 			}
 		}
 		if(array_key_exists("conditions", $params)){
