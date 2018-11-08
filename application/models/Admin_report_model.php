@@ -184,6 +184,7 @@ class Admin_report_model extends CI_Model {
         $fields[] = 'E';
         $fields[] = 'V';
         $fields[] = 'SCORES';
+        $fields[] = 'DAYS PRESENT';
 
         // set column header names to active sheet
         $this->excel->getActiveSheet()->fromArray($fields, NULL, 'A7');
@@ -209,6 +210,7 @@ class Admin_report_model extends CI_Model {
             $lineData[] = $att_record[$i]['excuses'];
             $lineData[] = $att_record[$i]['vacations'];
             $lineData[] = $att_record[$i]['points'];
+            $lineData[] = $att_record[$i]['present_days'];
             // set report value to active sheet
             $this->excel->getActiveSheet()->fromArray($lineData, NULL, 'A'.$target_cell);
             $target_cell++;
@@ -310,6 +312,7 @@ class Admin_report_model extends CI_Model {
         $fields[] = 'E';
         $fields[] = 'V';
         $fields[] = 'SCORES';
+        $fields[] = 'DAYS PRESENT';
 
         // set column header names to active sheet
         $this->excel->getActiveSheet()->fromArray($fields, NULL, 'A7');
@@ -335,6 +338,7 @@ class Admin_report_model extends CI_Model {
             $lineData[] = $att_record[$i]['excuses'];
             $lineData[] = $att_record[$i]['vacations'];
             $lineData[] = $att_record[$i]['points'];
+            $lineData[] = $att_record[$i]['present_days'];
             // set report value to active sheet
             $this->excel->getActiveSheet()->fromArray($lineData, NULL, 'A'.$target_cell);
             $target_cell++;

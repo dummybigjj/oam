@@ -184,6 +184,7 @@ class Admin_model extends CI_Model {
 				$presents = $this->crud->getData('','c',$condition,'tbl12');
 				$students[$i]['presents'] = $presents;
 				$students[$i]['points'] = ($presents * 2) + ($vacations * 2) + $lates;
+				$students[$i]['present_days'] = 30 - $absences;
 				// SET REMARKS
 				if($absences > 0 && $absences <= 2){
 					$students[$i]['remarks'] = 'W1';
@@ -241,6 +242,7 @@ class Admin_model extends CI_Model {
 				$presents = $this->crud->getData('','c',$condition,'tbl11');
 				$students[$i]['presents'] = $presents;
 				$students[$i]['points'] = ($presents * 2) + ($vacations * 2) + $lates;
+				$students[$i]['present_days'] = 30 - (intval(($absences / 3))  + intval(($lates / 5)));
 				// SET REMARKS
 				if($absences > 0 && $absences <= 2){
 					$students[$i]['remarks'] = 'W1';
