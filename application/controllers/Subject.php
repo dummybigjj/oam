@@ -315,7 +315,7 @@ class Subject extends CI_Controller{
         );
 
         $current_schedule   = $this->crud->getData('','s',array('schedule_id'=>$sched_id),'tbl10');
-        $cond = array('subject_code'=>$current_schedule['subject_code'],'batch_year'=>$current_schedule['batch_year_id']);
+        $cond = array('subject_code'=>$current_schedule['subject_code'],'batch_year'=>$current_schedule['batch_year_id'],'is_active'=>'true');
         $students  = $this->crud->getData('tbl_id,student_id','a',$cond,'tbl9');
 
         if(!empty($schedule['subject_id']) && !empty($schedule['subject_code']) && !empty($schedule['room_id'])){
