@@ -157,7 +157,7 @@
                             <th>Action</th>
                           </tr>
                           <tr>
-                            <th colspan="6">Total Presents: <?php echo !empty($p)?$p:''; ?> --- Total Absents: <?php echo !empty($a)?$a:''; ?> --- Total Lates: <?php echo !empty($l)?$l:''; ?> --- Total Excuses: <?php echo !empty($e)?$e:''; ?> --- Total Vacation: <?php echo $v; ?></th>
+                            <th colspan="6">Total Presents: <?php echo !empty($p)?$p:''; ?> --- Total Absents: <?php echo !empty($a)?$a:''; ?> --- Total Lates: <?php echo !empty($l)?$l:''; ?> --- Total Excuses: <?php echo !empty($e)?$e:''; ?> --- Total Vacation: <?php echo !empty($v)?$v:''; ?></th>
                           </tr>
                         </tfoot>
                       </table>
