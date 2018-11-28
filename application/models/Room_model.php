@@ -15,38 +15,11 @@ class Room_model extends CI_Model {
 	 * @return associative array list or single room on success.
 	 */
 	public function getRooms($return_type,$condition){
-		$data = $this->crud->getData('',$return_type,$condition,'tbl5');
-		return $this->getRoomsCreator($data);
+		return $this->crud->getData('',$return_type,$condition,'tbl5');
 	}
 
 	/**
-	 * getRoomsCreator function.
-	 * 
-	 * @access private
-	 * @param associative array $users
-	 * @return associative array list or single room on success.
-	 */
-	private function getRoomsCreator($room = array()){
-		if(!empty($room)){
-			if(array_key_exists('room_id', $room)){
-				$created_by = $this->crud->getData('u_full_name','s',array('user_id'=>$room['created_by']),'tbl1');
-				$updated_by = $this->crud->getData('u_full_name','s',array('user_id'=>$room['updated_by']),'tbl1');
-				$room['created_by'] = $created_by['u_full_name'];
-				$room['updated_by'] = $updated_by['u_full_name'];
-			}else{
-				for ($i=0; $i < count($room); $i++) { 
-					$created_by = $this->crud->getData('u_full_name','s',array('user_id'=>$room[$i]['created_by']),'tbl1');
-					$updated_by = $this->crud->getData('u_full_name','s',array('user_id'=>$room[$i]['updated_by']),'tbl1');
-					$room[$i]['created_by'] = $created_by['u_full_name'];
-					$room[$i]['updated_by'] = $updated_by['u_full_name'];
-				}
-			}
-		}
-		return $room;
-	}
-
-	/**
-	 * getRoomsCreator function.
+	 * getSchedules function.
 	 * 
 	 * @access public
 	 * @param int $batch_year
@@ -64,7 +37,7 @@ class Room_model extends CI_Model {
 	}
 
 	/**
-	 * getRoomsCreator function.
+	 * getScheduleById function.
 	 * 
 	 * @access public
 	 * @param int $schedule_id
@@ -101,8 +74,6 @@ class Room_model extends CI_Model {
 		if(!empty($room_id)){
 			for ($i=0; $i < count($room_id); $i++) { 
 				$this->crud->deleteData(array('room_id'=>$room_id[$i]),'tbl5');
-				$this->crud->deleteData(array('room_id'=>$room_id[$i]),'tbl10');
-				$this->crud->deleteData(array('room'=>$room_id[$i]),'tbl9');
 			}
 			return TRUE;
 		}

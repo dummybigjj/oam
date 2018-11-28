@@ -823,7 +823,7 @@ class Crud extends Cruds
 			}
 		}
 		$this->db->order_by($order);
-		$this->db->limit($page[0],$page[1]);
+		if(!empty($page))$this->db->limit($page[0],$page[1]);
 		return $this->db->get()->result_array();
 	}
 

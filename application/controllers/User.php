@@ -196,7 +196,7 @@ class User extends CI_Controller{
             'designation'    => $this->input->post('designation')
         );
         $new_data = $this->crud->insertBatchvalidateAndRemoveDuplicateData($data,'','u_email_address','','tbl1');
-        $insert   = $this->crud->setDataBatch($new_data,array('password_reset_date'=>$reset_date,'created_by'=>$this->session->userdata('user_id')),'tbl1');
+        $insert   = $this->crud->setDataBatch($new_data,array('password_reset_date'=>$reset_date,'created_by'=>$this->session->userdata('email')),'tbl1');
         if($insert){
             $this->user_model->recordLogs('Register users',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success', 'Users has been registered!.');
@@ -288,13 +288,13 @@ class User extends CI_Controller{
         $password = $this->user_model->hashPassword(trim($this->input->post('password1')));
         if(!empty($name) && !empty($email)){
             if($this->user_model->isEmailValid($email,$this->session->userdata('user_id'))===TRUE && !empty(trim($this->input->post('password1')))){
-                $this->crud->updateData(array('u_full_name'=>$name,'u_email_address'=>$email,'u_password'=>$password,'updated_by'=>$this->session->userdata('user_id')),array('user_id'=>$user_id),'tbl1');
+                $this->crud->updateData(array('u_full_name'=>$name,'u_email_address'=>$email,'u_password'=>$password,'updated_by'=>$this->session->userdata('email')),array('user_id'=>$user_id),'tbl1');
                 $this->user_model->recordLogs('Update user profile',$this->session->userdata('user_id'));
                 $this->session->set_flashdata('success','Profile has been successfully updated!. You have to re-login to see changes made.');
             }else if($this->user_model->isEmailValid($email,$this->session->userdata('user_id'))===FALSE){
                 $this->session->set_flashdata('warning','Profile has not been updated due to an email that is not valid.');
             }else{
-                $this->crud->updateData(array('u_full_name'=>$name,'u_email_address'=>$email,'updated_by'=>$this->session->userdata('user_id')),array('user_id'=>$user_id),'tbl1');
+                $this->crud->updateData(array('u_full_name'=>$name,'u_email_address'=>$email,'updated_by'=>$this->session->userdata('email')),array('user_id'=>$user_id),'tbl1');
                 $this->user_model->recordLogs('Update user profile',$this->session->userdata('user_id'));
                 $this->session->set_flashdata('success','Profile has been successfully updated!. You have to re-login to see changes made.');
             }
@@ -332,7 +332,7 @@ class User extends CI_Controller{
             'u_full_name'     => trim($this->input->post('name')),
             'u_email_address' => trim($this->input->post('email')),
             'designation'     => trim($this->input->post('designation')),
-            'updated_by'      => $this->session->userdata('user_id')
+            'updated_by'      => $this->session->userdata('email')
         );
         $cond = array('user_id' => $user_id);
         if(!empty($data['u_email_address']) && !empty($data['u_full_name']) && !empty($data['designation'])){
@@ -362,13 +362,13 @@ class User extends CI_Controller{
         if($this->input->post('deactivate')){
             // Deactivate users
             $data = array('user_id'=>$this->input->post('user_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('user_id')),'user_id','tbl1');
+            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('email')),'user_id','tbl1');
             $this->user_model->recordLogs('Deactivate users',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','User(s) has been deactivated');
         }else if($this->input->post('activate')){
             // Deactivate users
             $data = array('user_id'=>$this->input->post('user_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('user_id')),'user_id','tbl1');
+            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('email')),'user_id','tbl1');
             $this->user_model->recordLogs('Activate users',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','User(s) has been activated');
         }

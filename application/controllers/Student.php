@@ -246,7 +246,7 @@ class Student extends CI_Controller{
             'remarks'       => $this->input->post('remarks')
         );
         $n_data = $this->crud->insertBatchvalidateAndRemoveDuplicateData($data,'','student_no','','tbl2');
-        $insert = $this->crud->insertBatch($n_data,array('student_no'),array('created_by'=>$this->session->userdata('user_id')),'tbl2');
+        $insert = $this->crud->insertBatch($n_data,array('student_no'),array('created_by'=>$this->session->userdata('email')),'tbl2');
         if($insert){
             $this->user_model->recordLogs('Register students',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success', 'Students has been registered!.');
@@ -267,13 +267,13 @@ class Student extends CI_Controller{
         if($this->input->post('deactivate')){
             // Deactivate student
             $data = array('student_id'=>$this->input->post('student_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('user_id')),'student_id','tbl2');
+            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('email')),'student_id','tbl2');
             $this->user_model->recordLogs('Deactivate student record',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','Subject(s) has been deactivated');
         }else if($this->input->post('activate')){
             // Activate student
             $data = array('student_id'=>$this->input->post('student_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('user_id')),'student_id','tbl2');
+            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('email')),'student_id','tbl2');
             $this->user_model->recordLogs('Activate student record',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','Subject(s) has been activated');
         }
@@ -609,7 +609,7 @@ class Student extends CI_Controller{
         // delete student in student table
         $this->crud->deleteData(array('student_id'=>$this->input->post('student_id')),'tbl2');
         // delete student in student_subject table
-        $this->crud->deleteData(array('student_id'=>$this->input->post('student_id')),'tbl9');
+        // $this->crud->deleteData(array('student_id'=>$this->input->post('student_id')),'tbl9');
         $this->user_model->recordLogs('Delete Student Records',$this->session->userdata('user_id'));
         echo json_encode(array("status"=>TRUE));
     }

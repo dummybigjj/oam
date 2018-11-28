@@ -147,7 +147,7 @@ class Subject extends CI_Controller{
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
         $data = array('subject_title' => $this->input->post('subject_title'));
         $new_ = $this->crud->insertBatchvalidateAndRemoveDuplicateData($data,'','subject_title','','tbl7');
-        $insert = $this->crud->setDataBatch($new_,array('created_by'=>$this->session->userdata('user_id')),'tbl7');
+        $insert = $this->crud->setDataBatch($new_,array('created_by'=>$this->session->userdata('email')),'tbl7');
         if($insert){
             $this->user_model->recordLogs('Create new subject(s)',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success', 'New subject(s) has been created!.');
@@ -169,13 +169,13 @@ class Subject extends CI_Controller{
         if($this->input->post('deactivate')){
             // Deactivate subjects
             $data = array('subject_id'=>$this->input->post('subject_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('user_id')),'subject_id','tbl7');
+            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('email')),'subject_id','tbl7');
             $this->user_model->recordLogs('Deactivate subjects',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','Subject(s) has been deactivated');
         }else if($this->input->post('activate')){
             // Activate subjects
             $data = array('subject_id'=>$this->input->post('subject_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('user_id')),'subject_id','tbl7');
+            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('email')),'subject_id','tbl7');
             $this->user_model->recordLogs('Activate subjects',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','Subject(s) has been activated');
         }
@@ -208,7 +208,7 @@ class Subject extends CI_Controller{
         $sub_id  = $this->input->post('subject_id');
         if(!empty($subject)){
             if(empty($this->crud->getData('','s',array('subject_title'=>$subject,'subject_id !='=>$sub_id),'tbl7'))){
-                $data = array('subject_title'=>$subject,'updated_by'=>$this->session->userdata('user_id'));
+                $data = array('subject_title'=>$subject,'updated_by'=>$this->session->userdata('email'));
                 $cond = array('subject_id'=>$sub_id);
                 $this->crud->updateData($data,$cond,'tbl7');
                 $this->user_model->recordLogs('Update subject title',$this->session->userdata('user_id'));

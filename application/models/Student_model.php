@@ -16,34 +16,7 @@ class Student_model extends CI_Model {
 	 * @return associative array list or single student on success.
 	 */
 	public function getStudents($return_type,$condition){
-		$data = $this->crud->getDataWithSort('',$return_type,$condition,'created ASC','tbl2');
-		return $this->getStudentsCreator($data);
-	}
-
-	/**
-	 * getStudentsCreator function.
-	 * 
-	 * @access private
-	 * @param associative array $users
-	 * @return associative array list or single student on success.
-	 */
-	private function getStudentsCreator($students = array()){
-		if(!empty($students)){
-			if(array_key_exists('student_id', $students)){
-				$created_by = $this->crud->getData('u_full_name','s',array('user_id'=>$students['created_by']),'tbl1');
-				$updated_by = $this->crud->getData('u_full_name','s',array('user_id'=>$students['updated_by']),'tbl1');
-				$students['created_by'] = $created_by['u_full_name'];
-				$students['updated_by'] = $updated_by['u_full_name'];
-			}else{
-				for ($i=0; $i < count($students); $i++) { 
-					$created_by = $this->crud->getData('u_full_name','s',array('user_id'=>$students[$i]['created_by']),'tbl1');
-					$updated_by = $this->crud->getData('u_full_name','s',array('user_id'=>$students[$i]['updated_by']),'tbl1');
-					$students[$i]['created_by'] = $created_by['u_full_name'];
-					$students[$i]['updated_by'] = $updated_by['u_full_name'];
-				}
-			}
-		}
-		return $students;
+		return $this->crud->getDataWithSort('',$return_type,$condition,'created ASC','tbl2');
 	}
 
 	/** 

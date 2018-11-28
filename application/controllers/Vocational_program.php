@@ -105,7 +105,7 @@ class Vocational_program extends CI_Controller{
             'voc_program_acronym' => $this->input->post('voc_program_acronym')
         );
         $new_data = $this->crud->insertBatchvalidateAndRemoveDuplicateData($data,'','voc_program_acronym','','tbl6');
-        $insert   = $this->crud->setDataBatch($new_data,array('created_by'=>$this->session->userdata('user_id')),'tbl6');
+        $insert   = $this->crud->setDataBatch($new_data,array('created_by'=>$this->session->userdata('email')),'tbl6');
         if($insert){
             $this->user_model->recordLogs('Create new Vocatonal Program(s)',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success', 'New Vocatonal Program(s) has been created!.');
@@ -127,13 +127,13 @@ class Vocational_program extends CI_Controller{
         if($this->input->post('deactivate')){
             // Deactivate users
             $data = array('voc_program_id'=>$this->input->post('voc_program_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('user_id')),'voc_program_id','tbl6');
+            $this->crud->updateDataBatch($data,array('status'=>'0','updated_by'=>$this->session->userdata('email')),'voc_program_id','tbl6');
             $this->user_model->recordLogs('Deactivate Vocatonal Program(s)',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','Vocatonal Program(s) has been deactivated');
         }else if($this->input->post('activate')){
             // Activate users
             $data = array('voc_program_id'=>$this->input->post('voc_program_id'));
-            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('user_id')),'voc_program_id','tbl6');
+            $this->crud->updateDataBatch($data,array('status'=>'1','updated_by'=>$this->session->userdata('email')),'voc_program_id','tbl6');
             $this->user_model->recordLogs('Activate Vocatonal Program(s)',$this->session->userdata('user_id'));
             $this->session->set_flashdata('success','Vocatonal Program(s) has been activated');
         }
@@ -166,7 +166,7 @@ class Vocational_program extends CI_Controller{
         $data   = array(
             'voc_program' => trim($this->input->post('voc_program')),
             'voc_program_acronym' => trim($this->input->post('voc_program_acronym')),
-            'updated_by' => $this->session->userdata('user_id')
+            'updated_by' => $this->session->userdata('email')
         );
         $cond = array('voc_program_id'=>$voc_id);
         if(!empty($data['voc_program']) && !empty($data['voc_program_acronym'])){
