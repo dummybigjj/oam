@@ -654,7 +654,8 @@ class Student extends CI_Controller{
                         $students[] = array(
                             'student_no'    => $student_number,
                             'english_name'  => $english_name,
-                            'arabic_name'   => $arabic_name
+                            'arabic_name'   => $arabic_name,
+                            'created_by'    => $this->session->userdata('email')
                         );
                     }
                 }

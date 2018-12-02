@@ -37,7 +37,7 @@
                           <tbody>
                             <tr>
                               <td>
-                                <input type="text" name="student_no[]" maxlength="5" onkeypress="validate(event)" placeholder="Student Number" required="" class="form-control">
+                                <input type="text" name="student_no[]" maxlength="6" onkeypress="validate(event)" placeholder="Student Number" required="" class="form-control">
                               </td>
                               <td>
                                 <input type="text" name="national_id[]" maxlength="10" placeholder="National ID" class="form-control">
