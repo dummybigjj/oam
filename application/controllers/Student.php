@@ -454,7 +454,8 @@ class Student extends CI_Controller{
                             'room'          => $student_subject['room'],
                             'day'           => $student_subject['day'],
                             'time'          => $student_subject['time'],
-                            'batch_year'    => $student_subject['batch_year'],
+                            'is_active'     => 'true',
+                            'batch_year'    => $student_subject['batch_year']
                         );
                         $count = $this->crud->getData('','c',$con,'tbl9') + count($valid_students);
                         if($count <= 40){
