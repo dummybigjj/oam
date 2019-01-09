@@ -273,7 +273,8 @@ class Admin extends CI_Controller{
     public function generate_voc_program_attendance_report(){
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
         // get inputs
-        $condition= array('vocational_program'=>$this->input->post('vocational_program'),'batch_year'=> $this->input->post('batch_year_id'));
+        $condition = array('vocational_program'=>$this->input->post('vocational_program'),'batch_year'=>$this->input->post('batch_year_id'));
+        if(!empty($this->input->post('company')))$condition['`student`.`company`'] = $this->input->post('company');
         $range1 = $this->input->post('date_range1');
         $range2 = $this->input->post('date_range2');
         // get necessary report data
@@ -286,7 +287,7 @@ class Admin extends CI_Controller{
         if((!empty($condition['vocational_program']) && !empty($range1) && !empty($range2)) && ($range1 <= $range2)){
             if(!empty($attendance)){
                 if($this->input->post('export_csv')){
-                    $this->admin_report_model->generateStudentAttendanceByVocationalProgramCsv($attendance,$att_record,$att_dates,$voc_program,$range1,$range2);
+                    $this->admin_report_model->generateStudentAttendanceByVocationalProgramCsv($attendance,$att_record,$att_dates,$voc_program,$range1,$range2,$condition);
                     exit;
                 }else if($this->input->post('export_pdf')){
                     $this->admin_report_model->generateVocProgramAttendanceReportPdf($attendance,$voc_program,$range1,$range2);
@@ -309,7 +310,8 @@ class Admin extends CI_Controller{
     {
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
         // get inputs
-        $condition= array('batch_year'=>$this->input->post('batch_year_id'));
+        $condition = array('batch_year'=>$this->input->post('batch_year_id'));
+        if(!empty($this->input->post('company')))$condition['`student`.`company`'] = $this->input->post('company');
         $range1 = $this->input->post('date_range1');
         $range2 = $this->input->post('date_range2');
         // get necessary report data
@@ -323,7 +325,7 @@ class Admin extends CI_Controller{
         {
             if($this->input->post('export_csv'))
             {
-                $this->admin_report_model->generateStudentsAttendanceXlsx($attendance,$att_record,$att_dates,$range1,$range2);
+                $this->admin_report_model->generateStudentsAttendanceXlsx($attendance,$att_record,$att_dates,$range1,$range2,$condition);
                 exit;
             }else
             {
@@ -346,7 +348,8 @@ class Admin extends CI_Controller{
     public function generate_subject_code_attendance_report(){
         $this->crud->credibilityAuth(array('Administrator','Registrar','Faculty'));
         // get inputs
-        $con    = array('subject_code'=>$this->input->post('subject_code'),'batch_year'=> $this->input->post('batch_year_id'));
+        $con = array('subject_code'=>$this->input->post('subject_code'),'batch_year'=> $this->input->post('batch_year_id'));
+        if(!empty($this->input->post('company')))$con['`student`.`company`'] = $this->input->post('company');
         $range1 = $this->input->post('date_range1');
         $range2 = $this->input->post('date_range2');
         // get necessary report data
@@ -358,7 +361,7 @@ class Admin extends CI_Controller{
         if((!empty($con['subject_code']) && !empty($range1) && !empty($range2)) && ($range1 <= $range2)){
             if(!empty($attendance) && !empty($att_record)){
                 if($this->input->post('export_csv')){
-                    $this->admin_report_model->generateStudentAttendanceBySubjectCodeCsv($attendance,$att_record,$att_dates,$con,$range1,$range2);
+                    $this->admin_report_model->generateStudentAttendanceBySubjectCodeCsv($attendance,$att_record,$att_dates,$con,$range1,$range2,$con);
                     exit;
                 }else if($this->input->post('export_pdf')){
                     $this->admin_report_model->generateSubjectCodeAttendanceReportPdf($attendance,$con,$range1,$range2);
@@ -386,7 +389,8 @@ class Admin extends CI_Controller{
     public function generate_subject_code_remarks_report(){
         $this->crud->credibilityAuth(array('Administrator','Registrar','Faculty'));
         // get inputs
-        $con    = array('subject_code'=>$this->input->post('subject_code'),'batch_year'=> $this->input->post('batch_year_id'));
+        $con = array('subject_code'=>$this->input->post('subject_code'),'batch_year'=> $this->input->post('batch_year_id'));
+        if(!empty($this->input->post('company')))$con['`student`.`company`'] = $this->input->post('company');
         $range1 = $this->input->post('date_range1');
         $range2 = $this->input->post('date_range2');
         // get necessary report data

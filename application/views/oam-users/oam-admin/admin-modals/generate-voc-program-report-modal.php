@@ -23,6 +23,18 @@
               </div>
 
               <div class="form-group col-md-12">
+                <div class="form-control-label">Company (Optional)</div>
+                <select name="company" class="form-control">
+                  <option value=""></option>
+                  <?php if(!empty($company)): ?>
+                    <?php foreach ($company as $value): ?>
+                      <option value="<?php echo $value['company_name']; ?>"><?php echo $value['company_name']; ?></option>
+                    <?php endforeach; ?>
+                  <?php endif ?>
+                </select>
+              </div>
+
+              <div class="form-group col-md-12">
                 <div class="form-control-label"><i class="fa fa-calendar"></i> Date Range</div>
               </div>
 

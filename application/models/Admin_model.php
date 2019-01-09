@@ -67,7 +67,7 @@ class Admin_model extends CI_Model {
 	}
 
 	/**
-	 * getStudentsBasicInfo function.
+	 * getStudentsInfo function.
 	 * 
 	 * @access public
 	 * @param associative array $condition

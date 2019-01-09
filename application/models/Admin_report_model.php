@@ -17,7 +17,7 @@ class Admin_report_model extends CI_Model {
      * @param date $range2
      * @return xlsx|xlx file on success.
      */
-    public function generateStudentsAttendanceXlsx($attendance=array(),$att_record=array(),$att_dates=array(),$range1,$range2){
+    public function generateStudentsAttendanceXlsx($attendance=array(),$att_record=array(),$att_dates=array(),$range1,$range2,$cond){
         //activate worksheet number 1
         $this->excel->setActiveSheetIndex(0);
         //name the worksheet
@@ -31,8 +31,12 @@ class Admin_report_model extends CI_Model {
         //set aligment to center for that merged cell (D2 to M2)
         $this->excel->getActiveSheet()->getStyle('D2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
+        if(array_key_exists('`student`.`company`', $cond)):
         //set cell D3 content with some text
+        $this->excel->getActiveSheet()->setCellValue('D3', 'Students Daily Attendance Report '.$cond['`student`.`company`']);
+        else:
         $this->excel->getActiveSheet()->setCellValue('D3', 'Students Daily Attendance Report');
+        endif;
         //merge cell D3 until M3
         $this->excel->getActiveSheet()->mergeCells('D3:M3');
         //set aligment to center for that merged cell (D3 to M3)
@@ -135,7 +139,7 @@ class Admin_report_model extends CI_Model {
      * @param date $range2
      * @return csv file on success.
      */
-    public function generateStudentAttendanceByVocationalProgramCsv($attendance=array(),$att_record=array(),$att_dates=array(),$voc_program=array(),$range1,$range2){
+    public function generateStudentAttendanceByVocationalProgramCsv($attendance=array(),$att_record=array(),$att_dates=array(),$voc_program=array(),$range1,$range2,$cond){
         //activate worksheet number 1
         $this->excel->setActiveSheetIndex(0);
         //name the worksheet
@@ -149,8 +153,12 @@ class Admin_report_model extends CI_Model {
         //set aligment to center for that merged cell (D2 to M2)
         $this->excel->getActiveSheet()->getStyle('D2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
+        if(array_key_exists('`student`.`company`', $cond)):
         //set cell D3 content with some text
+        $this->excel->getActiveSheet()->setCellValue('D3', 'Attendance Report '.$cond['`student`.`company`']);
+        else:
         $this->excel->getActiveSheet()->setCellValue('D3', 'Attendance Report');
+        endif;
         //merge cell D3 until M3
         $this->excel->getActiveSheet()->mergeCells('D3:M3');
         //set aligment to center for that merged cell (D3 to M3)
@@ -263,7 +271,7 @@ class Admin_report_model extends CI_Model {
      * @param date $range2
      * @return csv file on success.
      */
-    public function generateStudentAttendanceBySubjectCodeCsv($attendance=array(),$att_record=array(),$att_dates=array(),$con=array(),$range1,$range2){
+    public function generateStudentAttendanceBySubjectCodeCsv($attendance=array(),$att_record=array(),$att_dates=array(),$con=array(),$range1,$range2,$cond){
         //activate worksheet number 1
         $this->excel->setActiveSheetIndex(0);
         //name the worksheet
@@ -277,8 +285,12 @@ class Admin_report_model extends CI_Model {
         //set aligment to center for that merged cell (D2 to M2)
         $this->excel->getActiveSheet()->getStyle('D2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
+        if(array_key_exists('`student`.`company`', $cond)):
         //set cell D3 content with some text
+        $this->excel->getActiveSheet()->setCellValue('D3', 'Attendance Report '.$cond['`student`.`company`']);
+        else:
         $this->excel->getActiveSheet()->setCellValue('D3', 'Attendance Report');
+        endif;
         //merge cell D3 until M3
         $this->excel->getActiveSheet()->mergeCells('D3:M3');
         //set aligment to center for that merged cell (D3 to M3)
