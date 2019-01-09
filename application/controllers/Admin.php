@@ -15,6 +15,7 @@ class Admin extends CI_Controller{
         $this->load->model('vocational_program_model');
         $this->load->model('user_model');
         $this->load->model('admin_report_model');
+        $this->load->model('company_model');
     }
 
     // View templating references
@@ -144,6 +145,7 @@ class Admin extends CI_Controller{
         // Necessary page data
         $data['batch_year']  = $this->crud->getData('','a','','tbl8');
         $data['voc_program'] = $this->vocational_program_model->getVocationalPrograms('a','');
+        $data['company']     = $this->company_model->get_company('a',array('status'=>'1'));
         // Page headers
         $this->load->view('templates/header');
         $this->load->view('templates/header-bar');

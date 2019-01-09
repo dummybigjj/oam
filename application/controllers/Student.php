@@ -18,6 +18,7 @@ class Student extends CI_Controller{
         $this->load->model('subject_model');
         $this->load->model('room_model');
         $this->load->model('vocational_program_model');
+        $this->load->model('company_model');
     }
 
     // View templating references
@@ -81,6 +82,7 @@ class Student extends CI_Controller{
         $data['subheader'] = array('title'=>'Students','icon'=>'fa fa-user-o');
         // Necessary page data
         $data['students']  = $this->student_model->getStudents('a','');
+        $data['company']   = $this->company_model->get_company('a',array('status'=>'1'));
         // Page headers
         $this->load->view('templates/header');
         $this->load->view('templates/header-bar');
@@ -113,6 +115,7 @@ class Student extends CI_Controller{
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
         $data['subheader'] = array('title'=>'New Students','icon'=>'fa fa-user-o');
         // Necessary page data
+        $data['company'] = $this->company_model->get_company('a',array('status'=>'1'));
         // Page headers
         $this->load->view('templates/header');
         $this->load->view('templates/header-bar');
@@ -237,6 +240,7 @@ class Student extends CI_Controller{
         $data = array(
             'student_no'    => $this->input->post('student_no'),
             'national_id'   => $this->input->post('national_id'),
+            'company'       => $this->input->post('company'),
             'email_address' => $this->input->post('email_address'),
             'mobile_no'     => $this->input->post('mobile_no'),
             'english_name'  => $this->input->post('english_name'),
@@ -306,6 +310,7 @@ class Student extends CI_Controller{
         $data    = array(
             'student_no'    => trim($this->input->post('student_no')),
             'national_id'   => trim($this->input->post('national_id')),
+            'company'       => $this->input->post('company'),
             'email_address' => trim($this->input->post('email_address')),
             'mobile_no'     => trim($this->input->post('mobile_no')),
             'english_name'  => trim($this->input->post('english_name')),
@@ -315,7 +320,7 @@ class Student extends CI_Controller{
             'remarks'       => trim($this->input->post('remarks'))
         );
         $condition = array('student_id !=' => $stud_id);
-        if(!empty($data['student_no']) && !empty($data['arabic_name'])){
+        if(!empty($data['student_no']) && !empty($data['arabic_name']) && !empty($data['company'])){
             $std_no = $this->crud->isDataValid(array('student_no' => $data['student_no']),$condition,'tbl2');
             $email  = $this->crud->isDataValid(array('email_address' => $data['email_address']),$condition,'tbl2');
             $mobile = $this->crud->isDataValid(array('mobile_no' => $data['mobile_no']),$condition,'tbl2');
@@ -395,90 +400,8 @@ class Student extends CI_Controller{
      */
     public function set_students_subjects_mass_reg(){
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
-        if(isset($_FILES["file"]["name"])){
-            $path = $_FILES["file"]["tmp_name"];
-            $object = PHPExcel_IOFactory::load($path);
-            foreach($object->getWorksheetIterator() as $worksheet){
-                $highestRow = $worksheet->getHighestRow();
-                $highestColumn = $worksheet->getHighestColumn();
-                for($row=2; $row<=$highestRow; $row++){
-                    $student_number = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
-                    $students[] = trim($student_number);
-                }
-            }
-        }
-        $students = $this->student_model->getStudentId($students);
-        $batch_year = $this->input->post('batch_year');
-        // student subjects and schedule
-        $subject_schedule = array(
-            'subject'       => $this->input->post('subject'),
-            'subject_code'  => $this->input->post('subject_code'),
-            'time'          => $this->input->post('time'),
-            'room'          => $this->input->post('room'),
-            'day'           => $this->input->post('day'),
-            'vocational_program' => $this->input->post('vocational_program')
-        );
-
-        if(!empty($students)){
-            for ($i=0; $i < count($subject_schedule['subject']); $i++) { 
-                $student_subject = array(
-                    'subject'       => $subject_schedule['subject'][$i],
-                    'subject_code'  => $subject_schedule['subject_code'][$i],
-                    'time'          => $subject_schedule['time'][$i],
-                    'room'          => $subject_schedule['room'][$i],
-                    'day'           => $subject_schedule['day'][$i],
-                    'batch_year'    => $batch_year,
-                    'vocational_program' => $subject_schedule['vocational_program'][$i],
-                    'created_by'    => $this->session->userdata('user_id')
-                );
-                $schedule = array(
-                    'subject_id'    => $student_subject['subject'],
-                    'subject_code'  => $student_subject['subject_code'],
-                    'room_id'       => $student_subject['room'],
-                    'day'           => $student_subject['day'],
-                    'time'          => $student_subject['time'],
-                    'is_active'     => 'true',
-                    'batch_year_id' => $student_subject['batch_year'],
-                );
-                // validate students subject for current batch year
-                $valid_students1 = $this->student_model->validateStudentsSubject($students,$student_subject);
-                // validate students schedule for current batch year
-                $valid_students  = $this->student_model->validateStudentsSchedule($valid_students1,$student_subject);
-                if(count($valid_students) > 0){
-                    // check if schedule is already existing, if not - create new schedule
-                    $process_schedule = $this->student_model->processStundentSchedule($schedule);
-                    if($process_schedule==TRUE){
-                        $con = array(
-                            'subject'       => $student_subject['subject'],
-                            'subject_code'  => $student_subject['subject_code'],
-                            'room'          => $student_subject['room'],
-                            'day'           => $student_subject['day'],
-                            'time'          => $student_subject['time'],
-                            'is_active'     => 'true',
-                            'batch_year'    => $student_subject['batch_year']
-                        );
-                        $count = $this->crud->getData('','c',$con,'tbl9') + count($valid_students);
-                        if($count <= 40){
-                            $this->crud->setDataBatch(array('student_id'=>$valid_students),$student_subject,'tbl9');
-                            $this->user_model->recordLogs('Register New Student Subject and Schedule',$this->session->userdata('user_id'));
-                            
-                        }else{
-                            $diff = $count - 40;
-                            $this->user_model->recordLogs('Enrollment Registration stopped. Subject Code will/have reached its 40 enlistment capacity ('.$diff.' left). Students will not be registered!.',$this->session->userdata('user_id'));
-                            $this->session->set_flashdata('warning','Enrollment Registration stopped. Subject Code have reached its 40 enlistment capacity ('.$diff.' left). Students will not be registered!.');
-
-                        }
-                    }else{
-                        $this->session->set_flashdata('warning','Some students has not been registered due to conflict of room schedule!.');
-                    }
-                }else{
-                    $this->session->set_flashdata('warning','Some students has not been registered due to conflict of student subjects and schedule!.');
-                }
-            }
-            $this->session->set_flashdata('success','Students has been successfully registered!.');
-        }else{
-            $this->session->set_flashdata('warning','Error occured, no student records found on the requested file.');
-        }
+        $this->session->set_flashdata('success','Students has been successfully registered!.');
+        // code here
         redirect('register_students');
     }
 
@@ -491,63 +414,8 @@ class Student extends CI_Controller{
     public function student_update_student_registration_schedule(){
         $this->crud->credibilityAuth(array('Administrator','Registrar'));
         $alert  = 'alert alert-success';
-        $msg    = 'Student Subject and Schedule has been updated!';
-        $tbl_id = $this->input->post('tbl_id');
-        $student_id = $this->input->post('student_id');
-        $student_subject = array(
-            'subject'       => $this->input->post('subject'),
-            'subject_code'  => trim($this->input->post('subject_code')),
-            'time'          => $this->input->post('time'),
-            'room'          => $this->input->post('room'),
-            'day'           => $this->input->post('day'),
-            'vocational_program' => $this->input->post('vocational_program'),
-            'batch_year'    => $this->input->post('batch_year'),
-            'updated_by'    => $this->session->userdata('user_id')
-        );
-        $schedule = array(
-            'subject_id'    => $student_subject['subject'],
-            'subject_code'  => $student_subject['subject_code'],
-            'room_id'       => $student_subject['room'],
-            'day'           => $student_subject['day'],
-            'time'          => $student_subject['time'],
-            'batch_year_id' => $student_subject['batch_year'],
-        );
-
-        // validate if requested update of student subject is valid
-        $valid_student_subject  = $this->student_model->isStudentSubjectValid($student_id,$student_subject,$tbl_id);
-        // validate if requested update of student schedule is valid
-        $valid_student_schedule = $this->student_model->isStudentScheduleValid($student_id,$schedule,$tbl_id);
-        if($valid_student_subject==TRUE && $valid_student_schedule==TRUE){
-            // check if schedule is already existing, if not - insert new schedule
-            $check_schedule = $this->student_model->processStundentSchedule($schedule);
-            if($check_schedule==TRUE){
-                $con = array(
-                    'subject'       => $student_subject['subject'],
-                    'subject_code'  => $student_subject['subject_code'],
-                    'room'          => $student_subject['room'],
-                    'day'           => $student_subject['day'],
-                    'time'          => $student_subject['time'],
-                    'batch_year'    => $student_subject['batch_year'],
-                );
-                $count = $this->crud->getData('','c',$con,'tbl9') + 1;
-                if($count <= 30){
-                    $this->crud->updateData($student_subject,array('tbl_id'=>$tbl_id),'tbl9');
-                    $this->user_model->recordLogs('Update Student Subject and Schedule',$this->session->userdata('user_id'));
-                }else{
-                    $alert = 'alert alert-warning';
-                    $msg   = 'Student Subject and Schedule has not been updated due to Subject Code enlistment limit(30 Students) have already reached!.';
-                }
-            }else{
-                $alert = 'alert alert-warning';
-                $msg   = 'Student Subject and Schedule has not been updated due to conflict of room schedule!.';
-            }
-        }else if($valid_student_subject==FALSE){
-            $alert = 'alert alert-warning';
-            $msg   = 'Student Subject and Subject Code is not valid.';
-        }else if($valid_student_schedule==FALSE){
-            $alert = 'alert alert-warning';
-            $msg   = 'Student Class Schedule is not valid. It will result to conflict of student class schedule.';
-        }
+        $msg    = 'Student Subject and Schedule has been updateds!';
+        // code here
         echo json_encode(array("status"=>TRUE,"msg"=>$msg,"class_add"=>$alert));
     }
 

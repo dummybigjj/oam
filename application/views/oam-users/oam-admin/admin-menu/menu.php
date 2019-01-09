@@ -24,6 +24,7 @@
             <li><a href="<?php echo site_url('vocational_programs') ?>"> <i class="icon-list" aria-hidden="true"></i>Vocational Programs </a></li>
             <li><a href="<?php echo site_url('rooms') ?>"> <i class="fa fa-university" aria-hidden="true"></i>Rooms </a></li>
             <li><a href="<?php echo site_url('subjects') ?>"> <i class="icon-list-1" aria-hidden="true"></i>Subjects </a></li>
+            <li><a href="<?php echo site_url('company') ?>"> <i class="icon-home" aria-hidden="true"></i>Company </a></li>
           </ul>
 
           <ul class="list-unstyled">

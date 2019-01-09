@@ -88,6 +88,8 @@ $route['subject_assigning']			= 'subject/subject_assigning';
 $route['attendance_report']			= 'admin/attendance_report';
 $route['student_import_registration']='student/student_import_registration';
 $route['room_schedule/(:num)']		= 'room/room_schedule/$1';
+$route['company']				    = 'company/company';
+$route['new_company']			    = 'company/new_company';
 
 
 // Faculty routing rules

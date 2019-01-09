@@ -16,21 +16,33 @@
               <div class="form-group col-md-12">
                 <input type="hidden" name="student_id" class="form-control" required="">
                 <div class="form-control-label"><font style="color: red">*</font> Student No.</div>
-                <input type="text" name="student_no" maxlength="5" class="form-control" required="">
+                <input type="text" name="student_no" maxlength="6" class="form-control" onkeypress="validate(event)" required="">
               </div>
 
               <div class="form-group col-md-12">
-                <div class="form-control-label"><font style="color: red">*</font> National ID</div>
-                <input type="text" name="national_id" maxlength="10" class="form-control" required="">
+                <div class="form-control-label">National ID</div>
+                <input type="text" name="national_id" maxlength="10" class="form-control" required="" data-mask="9999999999">
               </div>
 
               <div class="form-group col-md-12">
-                <div class="form-control-label"><font style="color: red">*</font> Email</div>
+                <div class="form-control-label">Company</div>
+                <!-- <input type="text" name="company" maxlength="100" class="form-control" required=""> -->
+                <select class="form-control" name="company">
+                  <?php if(!empty($company)): ?>
+                    <?php foreach ($company as $value): ?>
+                      <option value="<?php echo $value['company_name']; ?>"><?php echo $value['company_name']; ?></option>
+                    <?php endforeach ?>
+                  <?php endif ?>
+                </select>
+              </div>
+
+              <div class="form-group col-md-12">
+                <div class="form-control-label">Email</div>
                 <input type="text" name="email_address" maxlength="60" class="form-control" required="">
               </div>
 
               <div class="form-group col-md-12">
-                <div class="form-control-label"><font style="color: red">*</font> Mobile No.</div>
+                <div class="form-control-label">Mobile No.</div>
                 <input type="text" data-mask="(999) 999-9999" name="mobile_no" class="form-control" required=""><small class="help-block-none">(999) 999-9999</small>
               </div>
 
@@ -45,17 +57,17 @@
               </div>
 
               <div class="form-group col-md-12">
-                <div class="form-control-label"><font style="color: red">*</font> Nationality</div>
+                <div class="form-control-label">Nationality</div>
                 <input type="text" name="nationality" maxlength="60" class="form-control" required="">
               </div>
 
               <div class="form-group col-md-12">
-                <div class="form-control-label"><font style="color: red">*</font> Sign Contract</div>
+                <div class="form-control-label">Sign Contract</div>
                 <input type="text" name="sign_contract" data-mask="9999-99-99" class="form-control" required=""><small class="help-block-none">YYYY-MM-DD</small>
               </div>
 
               <div class="form-group col-md-12">
-                <div class="form-control-label"><font style="color: red">*</font> Preferred Course</div>
+                <div class="form-control-label">Preferred Course</div>
                 <input type="text" name="remarks" maxlength="60" class="form-control" required="">
               </div>
             </form>

@@ -158,6 +158,7 @@ function edit_student(id){
       success: function(data){
         $('[name="student_id"]').val(data.student_id);
         $('[name="student_no"]').val(data.student_no);
+        $('[name="company"]').val(data.company);
         $('[name="national_id"]').val(data.national_id);
         $('[name="email_address"]').val(data.email_address);
         $('[name="mobile_no"]').val(data.mobile_no);

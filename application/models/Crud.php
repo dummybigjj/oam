@@ -17,7 +17,8 @@ class Cruds extends CI_Model {
 			'tbl9' => 'student_subject',
 			'tbl10'=> 'schedule',
 			'tbl11'=> 'attendance_record',
-			'tbl12'=> 'attendance_daily_record'
+			'tbl12'=> 'attendance_daily_record',
+			'tbl13'=> 'company'
 		);
 		$this->init_returnType = array(
 			'c' => 'count',
@@ -713,47 +714,24 @@ class Crud extends Cruds
 		$arr_data = array();
         foreach ($data as $key => $value) {
             $ctr = 0;
-            for ($i=0; $i < count($data[$key]); $i++) { 
-        		$arr_data[$ctr][$key] = trim($data[$key][$i]);
-            	$ctr++;
+            if(is_array($data[$key])){
+            	for ($i=0; $i < count($data[$key]); $i++) { 
+	        		$arr_data[$ctr][$key] = trim($data[$key][$i]);
+	            	$ctr++;
+	            }
             }
         }
-
-        // remove invalid array
-        for ($i=0; $i < count($keys); $i++) { 
-        	for ($a=0; $a < count($arr_data); $a++) { 
-        		if(empty($arr_data[$a][$keys[$i]])){
-        			$arr_data[$a] = '';
-        		}
-        	}
-        }
-
-        // create new array
-        $arr = array();
-        $ctr = 0;
         for ($i=0; $i < count($arr_data); $i++) { 
-        	if(is_array($arr_data[$i])){
-        		$arr[$ctr] = $arr_data[$i];
-        		$ctr++;
-        	}
-        }
-
-        // add array keys
-        for ($i=0; $i < count($arr); $i++) { 
         	if(!empty($fk)){
 				foreach($fk as $key => $val) {
-					$arr[$i][$key] = $val;
+					$arr_data[$i][$key] = $val;
 				}
 			}
         }
-
-        if(!empty($arr)){
-			$insert_batch = $this->db->insert_batch($this->init_tbl[$tbl],$arr);
-			if($insert_batch){
-				return $this->db->insert_id();
-			}
+        // insert batch
+		if(!empty($arr_data)){
+			return $this->basicInsertBatch($arr_data,$tbl);
 		}
-
 		return FALSE;
 	}
 

@@ -25,6 +25,7 @@
                             <tr>
                               <th>Student No.</th>
                               <th>National ID</th>
+                              <th>Company</th>
                               <th>Email</th>
                               <th>Mobile No.</th>
                               <th>English Name</th>
@@ -41,6 +42,15 @@
                               </td>
                               <td>
                                 <input type="text" name="national_id[]" maxlength="10" placeholder="National ID" class="form-control">
+                              </td>
+                              <td>
+                                <select name="company[]" class="form-control">
+                                  <?php if(!empty($company)): ?>
+                                    <?php foreach ($company as $value): ?>
+                                      <option value="<?php echo $value['company_name']; ?>"><?php echo $value['company_name']; ?></option>
+                                    <?php endforeach; ?>
+                                  <?php endif; ?>
+                                </select>
                               </td>
                               <td>
                                 <input type="email" name="email_address[]" maxlength="60" placeholder="Email Address" class="form-control">
@@ -70,6 +80,7 @@
                             <tr>
                               <th>Student No.</th>
                               <th>National ID</th>
+                              <th>Company</th>
                               <th>Email</th>
                               <th>Mobile No.</th>
                               <th>English Name</th>
@@ -107,10 +118,17 @@ $(document).ready(function(){
     new_student.after().html(
       '<tr>'+
         '<td>'+
-          '<input type="text" name="student_no[]" maxlength="5" onkeypress="validate(event)" placeholder="Student Number" required="" class="form-control">'+
+          '<input type="text" name="student_no[]" maxlength="6" onkeypress="validate(event)" placeholder="Student Number" required="" class="form-control">'+
         '</td>'+
         '<td>'+
           '<input type="text" name="national_id[]" maxlength="10" placeholder="National ID" class="form-control">'+
+        '</td>'+
+        '<td>'+
+          '<select name="company[]" class="form-control">'+
+            '<?php foreach ($company as $value): ?>'+
+              '<option value="<?php echo $value['company_name']; ?>"><?php echo $value['company_name']; ?></option>'+
+            '<?php endforeach; ?>'+
+          '</select>'+
         '</td>'+
         '<td>'+
           '<input type="email" name="email_address[]" maxlength="60" placeholder="Email Address" class="form-control">'+
